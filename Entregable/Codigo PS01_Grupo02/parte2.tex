@@ -1,0 +1,828 @@
+\begin{center}
+    {\LARGE \textbf{Parte II}}\\[6pt]
+\end{center}
+\vspace{4pt}\hrule\vspace{10pt}
+
+% ==================================================================
+\section*{Item 9}
+% ==================================================================
+
+\begin{enunciado}
+Demostrar que:
+\[
+    \frac{\partial y_{t+j}}{\partial \varepsilon_t} = f_{11}^{(j)}
+\]
+donde $f_{11}^{(j)}$ es el elemento $(1,1)$ de $F^j$.
+\end{enunciado}
+
+\subsection*{Solucion}
+
+\paragraph{Paso 1: Identidad de partida.}
+Partimos de la identidad:
+\[
+    Y_{t+j} = \mathbf{e}_1^T \xi_{t+j}
+\]
+
+\paragraph{Paso 2: Derivar el vector de estados respecto a $\varepsilon_t$.}
+
+Tomamos el vector de estados $\xi_t = F\xi_{t-1} + \mathbf{v}_t$ y derivamos respecto a $\varepsilon_t$:
+\[
+    \frac{\partial \xi_t}{\partial \varepsilon_t}
+    = \frac{\partial (F\xi_{t-1} + \mathbf{v}_t)}{\partial \varepsilon_t}
+\]
+
+Separamos los dos terminos:
+\[
+    \frac{\partial \xi_t}{\partial \varepsilon_t}
+    = \frac{\partial F\xi_{t-1}}{\partial \varepsilon_t} + \frac{\partial \mathbf{v}_t}{\partial \varepsilon_t}
+\]
+
+El primer termino es cero porque $\xi_{t-1}$ ya ocurrio antes del shock, por lo tanto es independiente de $\varepsilon_t$:
+\[
+    \frac{\partial \xi_{t-1}}{\partial \varepsilon_t} = 0
+\]
+
+Entonces nos queda:
+\[
+    \frac{\partial \xi_t}{\partial \varepsilon_t} = \frac{\partial \mathbf{v}_t}{\partial \varepsilon_t}
+\]
+
+\paragraph{Paso 3: Calcular $\partial \mathbf{v}_t / \partial \varepsilon_t$.}
+
+Recordamos que el vector de perturbaciones tiene la forma:
+\[
+    \mathbf{v}_t = \begin{pmatrix} \varepsilon_t \\ 0 \\ \vdots \\ 0 \end{pmatrix}
+\]
+
+Podemos factorizar $\varepsilon_t$:
+\[
+    \mathbf{v}_t = \varepsilon_t \cdot \begin{pmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{pmatrix}
+    = \varepsilon_t \cdot \mathbf{e}_1
+\]
+
+Entonces derivando respecto a $\varepsilon_t$:
+\[
+    \frac{\partial \mathbf{v}_t}{\partial \varepsilon_t}
+    = \frac{\partial (\varepsilon_t \cdot \mathbf{e}_1)}{\partial \varepsilon_t}
+    = \mathbf{e}_1
+\]
+
+Por tanto:
+\[
+    \frac{\partial \xi_t}{\partial \varepsilon_t} = \mathbf{e}_1
+\]
+
+\paragraph{Paso 4: Derivar $Y_{t+j}$ respecto a $\varepsilon_t$.}
+
+Partimos de la identidad y derivamos:
+\[
+    \frac{\partial Y_{t+j}}{\partial \varepsilon_t}
+    = \frac{\partial \mathbf{e}_1^T \xi_{t+j}}{\partial \varepsilon_t}
+\]
+
+Usando la ecuacion (7), que nos dice que $\mathbb{E}_t[\xi_{t+j}] = F^j \xi_t$, aplicamos la regla de la cadena:
+\[
+    \frac{\partial Y_{t+j}}{\partial \varepsilon_t}
+    = \mathbf{e}_1^T F^j \frac{\partial \xi_t}{\partial \varepsilon_t}
+\]
+
+Dado que tambien $\partial \xi_{t-1}/\partial \varepsilon_t = 0$, la derivada de $\xi_t$ es simplemente $\mathbf{e}_1$. Sustituyendo:
+\[
+    \frac{\partial Y_{t+j}}{\partial \varepsilon_t}
+    = \mathbf{e}_1^T F^j \mathbf{e}_1
+\]
+
+\paragraph{Paso 5: Extraer el elemento $(1,1)$.}
+
+Recordamos que:
+\[
+    \mathbf{e}_1 = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}
+    \qquad \text{y} \qquad
+    F^j = \begin{pmatrix} f_{11}^{(j)} & f_{12}^{(j)} & \cdots \\ f_{21}^{(j)} & f_{22}^{(j)} & \cdots \\ \vdots & & \ddots \end{pmatrix}
+\]
+
+Calculamos $F^j \mathbf{e}_1$: multiplicar $F^j$ por $\mathbf{e}_1$ extrae la primera columna de $F^j$:
+\[
+    F^j \mathbf{e}_1 = \begin{pmatrix} f_{11}^{(j)} \\ f_{21}^{(j)} \\ \vdots \end{pmatrix}
+\]
+
+Ahora multiplicamos por $\mathbf{e}_1^T$ por la izquierda, lo que extrae unicamente el primer elemento del vector:
+\[
+    \mathbf{e}_1^T \begin{pmatrix} f_{11}^{(j)} \\ f_{21}^{(j)} \\ \vdots \end{pmatrix}
+    = f_{11}^{(j)}
+\]
+
+\begin{resultado}
+\[
+    \frac{\partial y_{t+j}}{\partial \varepsilon_t} = f_{11}^{(j)}
+\]
+La IRF del ingreso es simplemente el elemento $(1,1)$ de la potencia $j$-esima de la matriz companera $F$.
+\end{resultado}
+
+% ==================================================================
+\section*{Ítem 10}
+% ==================================================================
+
+\begin{enunciado}
+Tomando en cuenta que $f_{11}^{(j)} = c_1\lambda_1^j + \cdots + c_p\lambda_p^j$ (suma de valores propios de $F$), demostrar las condiciones bajo las cuales la IRF es \textit{hump-shaped}.
+\end{enunciado}
+
+\subsection*{Solucion}
+
+\paragraph{i) Condicion para IRF hump-shaped.}
+
+La IRF es \textit{hump-shaped} si la respuesta de $Y$ ante el shock no es maxima en el momento en que ocurre el shock, sino que primero aumenta durante varios periodos, alcanza un pico en algun horizonte $j^* > 0$ y luego comienza a decrecer hasta converger a cero. Formalmente:
+\[
+    f_{11}^{(0)} < f_{11}^{(j^*)}, \quad \text{para algun } j^* \geq 1
+\]
+
+La condicion para que esto ocurra es que los valores propios de $F$ sean \textbf{numeros complejos}:
+\[
+    \lambda_i = a \pm bi \quad \text{con } b \neq 0
+\]
+
+\paragraph{Razon: forma polar de valores propios complejos.}
+
+Cuando los valores propios son complejos se pueden expresar en forma polar:
+\[
+    \lambda = |r| e^{i\theta}
+    \quad \text{donde} \quad
+    |r| = \sqrt{a^2 + b^2}, \quad
+    \theta = \arctan\!\left(\frac{b}{a}\right)
+\]
+
+Elevando a la potencia $j$:
+\[
+    \lambda^j = |r|^j e^{ij\theta}
+\]
+
+Aplicando la formula de Euler $e^{i\theta} = \cos\theta + i\sin\theta$:
+\[
+    \lambda^j = |r|^j \bigl(\cos(j\theta) + i\sin(j\theta)\bigr)
+\]
+
+Recordamos que $\cos(j\theta)$ oscila entre $-1$ y $1$ dependiendo del angulo.
+
+\paragraph{Suma de pares conjugados.}
+
+Los valores propios complejos vienen en pares conjugados:
+\[
+    \lambda_i = a + bi, \qquad \bar{\lambda}_i = a - bi
+\]
+
+Sumando su contribucion a $f_{11}^{(j)}$:
+\[
+    c_i \lambda_i^j + c_{i+1} \bar{\lambda}_i^j
+    = r^j(\cos(j\theta) + i\sin(j\theta)) + r^j(\cos(j\theta) - i\sin(j\theta))
+\]
+\[
+    = 2|r|^j \cos(j\theta)
+\]
+
+Si $\theta$ es pequeno, el coseno empieza cerca de 1 y sube lentamente antes de bajar, generando la joroba.
+
+\paragraph{Por que no pueden ser reales.}
+
+\begin{itemize}
+    \item \textbf{Todos reales positivos:} la IRF solo decreceria monotonamente desde el impacto, sin formar joroba.
+    \item \textbf{Todos reales negativos:} los valores propios alternan entre positivos y negativos de manera brusca (ver tabla):
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{cc}
+\hline
+$j$ & $\lambda^j$ (con $\lambda = -0.8$) \\
+\hline
+0 & 1 \\
+1 & $-0.8$ \\
+2 & $0.64$ \\
+3 & $-0.51$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Esta alternancia brusca no genera una joroba suave.
+
+\begin{resultado}
+La condicion necesaria para una IRF \textit{hump-shaped} es que la matriz $F$ tenga al menos un par de valores propios \textbf{complejos conjugados} $\lambda = a \pm bi$ con $b \neq 0$ y $|r| < 1$.
+\end{resultado}
+
+\paragraph{ii) Relevancia para la cuenta corriente.}
+
+Recordamos la ecuacion de la cuenta corriente (11):
+\[
+    ca_t = -\mathbb{E}_t \sum_{j=1}^{\infty} \frac{\Delta y_{t+j}}{(1+r^*)^j}
+\]
+
+La cuenta corriente depende de los cambios esperados del ingreso futuro.
+
+Con una IRF \textit{hump-shaped} tras el shock $\varepsilon_t$:
+
+\begin{itemize}
+    \item \textbf{Fase ascendente} ($0 \leq j < j^*$): el ingreso sigue subiendo y aun no llega al pico ($f_{11}^{(0)} < f_{11}^{(j^*)}$). Como el consumidor sabe que aun no ha llegado al nivel maximo, consume mas de lo que produce y se endeuda.
+    \item \textbf{En el pico} ($j = j^*$): el ingreso empieza a bajar; el consumidor sabe que en adelante tendra menos, por lo que suaviza el consumo y empieza a pagar deuda.
+    \item \textbf{Fase descendente} ($j > j^*$): el ingreso sigue por encima del consumo, hay superavit y se paga deuda.
+\end{itemize}
+
+% ==================================================================
+\section*{ítem 11}
+% ==================================================================
+
+\subsection*{i) Demostrar que $\dfrac{\partial y_{t+j}^p}{\partial \varepsilon_t} = \Gamma^T F^j e_1$}
+
+\begin{enunciado}
+\[
+    \frac{\partial y_{t+j}^p}{\partial \varepsilon_t} = \Gamma^T F^j e_1
+\]
+\end{enunciado}
+
+\paragraph{Solucion.}
+
+Del item (8) tenemos la definicion del ingreso permanente:
+\[
+    y_t^p = \Gamma^T \xi_t
+\]
+donde $\xi_t$ es el vector de estados y $\Gamma^T$ es el vector de pesos de descuento.
+
+Derivamos respecto a $\varepsilon_t$:
+\[
+    \frac{\partial y_{t+j}^p}{\partial \varepsilon_t}
+    = \Gamma^T \frac{\partial \xi_{t+j}}{\partial \varepsilon_t}
+\]
+
+Del Ejercicio 9 sabemos que:
+\[
+    \frac{\partial \xi_{t+j}}{\partial \varepsilon_t} = F^j e_1
+\]
+
+Sustituyendo directamente:
+\[
+    \frac{\partial y_{t+j}^p}{\partial \varepsilon_t} = \Gamma^T F^j e_1
+\]
+
+\begin{resultado}
+\[
+    \frac{\partial y_{t+j}^p}{\partial \varepsilon_t} = \Gamma^T F^j e_1
+\]
+\textbf{Interpretacion:} Esta expresion indica cuanto cambiara el ingreso permanente $j$ periodos despues del shock $\varepsilon_t$. $\Gamma^T$ acumula una suma ponderada de las respuestas futuras. Si el shock es permanente, $F^j e_1$ se mantiene grande y $\Gamma^T$ acumula una suma alta $\Rightarrow$ el ingreso permanente sube mucho. Si el shock es transitorio, $F^j e_1$ cae rapido y la suma es pequena.
+\end{resultado}
+
+\subsection*{ii) Demostrar que $\dfrac{\partial ca_{t+j}}{\partial \varepsilon_t} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1$}
+
+\begin{enunciado}
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1
+\]
+\end{enunciado}
+
+\paragraph{Paso 1: Expresar $c_t$ en terminos del ingreso permanente.}
+
+Partimos de la ecuacion (10):
+\[
+    c_t = \frac{r^*}{1+r^*} \mathbb{E}_t \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - r^* d_{t-1}
+\]
+
+Del item (8) reconocemos que:
+\[
+    y_t^p \equiv \frac{r^*}{1+r^*} \mathbb{E}_t \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j}
+\]
+
+Entonces podemos reescribir el consumo como:
+\[
+    c_t = y_t^p - r^* d_{t-1}
+\]
+
+\paragraph{Paso 2: Sustituir en la cuenta corriente.}
+
+De la ecuacion (5):
+\[
+    ca_t = y_t - c_t - r^* d_{t-1}
+\]
+
+Sustituimos $c_t = y_t^p - r^* d_{t-1}$:
+\[
+    ca_t = y_t - (y_t^p - r^* d_{t-1}) - r^* d_{t-1}
+\]
+
+Expandimos el parentesis:
+\[
+    ca_t = y_t - y_t^p + r^* d_{t-1} - r^* d_{t-1}
+\]
+
+Los terminos $r^* d_{t-1}$ se cancelan:
+\[
+    \boxed{ca_t = y_t - y_t^p}
+\]
+
+La cuenta corriente es la diferencia entre el ingreso corriente y el ingreso permanente.
+
+\paragraph{Paso 3: Derivar respecto a $\varepsilon_t$.}
+
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = \frac{\partial y_{t+j}}{\partial \varepsilon_t} - \frac{\partial y_{t+j}^p}{\partial \varepsilon_t}
+\]
+
+Por el Ejercicio 9 (ecuacion 14):
+\[
+    \frac{\partial y_{t+j}}{\partial \varepsilon_t} = \mathbf{e}_1^T F^j e_1
+\]
+
+Por el item anterior (ecuacion 16):
+\[
+    \frac{\partial y_{t+j}^p}{\partial \varepsilon_t} = \Gamma^T F^j e_1
+\]
+
+Sustituyendo ambos:
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = \mathbf{e}_1^T F^j e_1 - \Gamma^T F^j e_1
+\]
+
+Factorizamos $F^j e_1$:
+
+\begin{resultado}
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1
+\]
+\end{resultado}
+
+\paragraph{Rol de $(\mathbf{e}_1^T - \Gamma^T)$.}
+
+\begin{condicion}[Shock transitorio]
+$\mathbf{e}_1^T F^j e_1 > \Gamma^T F^j e_1$ porque el ingreso corriente sube mas que el permanente. La brecha $\mathbf{e}_1^T - \Gamma^T > 0$ implica superavit: el hogar consume menos de lo que produce.
+\end{condicion}
+
+\begin{condicion}[Shock permanente]
+$\mathbf{e}_1^T F^j e_1 = \Gamma^T F^j e_1$ porque el ingreso corriente y permanente suben igual. La diferencia es cero: no hay superavit ni deficit.
+\end{condicion}
+
+% ==================================================================
+\section*{Ítem 12}
+% ==================================================================
+
+\subsection*{i) Demostrar que $\displaystyle\sum_{j=0}^{T} \dfrac{\partial ca_{t+j}}{\partial \varepsilon_t} = -\dfrac{\partial d_{t+T}}{\partial \varepsilon_t}$}
+
+\paragraph{Paso 1: Iterar la restriccion presupuestaria hacia adelante.}
+
+Partimos de la ecuacion (9):
+\[
+    (1+r^*) d_{t-1} = \mathbb{E}_t \sum_{j=0}^{\infty} \frac{y_{t+j} - c_{t+j}}{(1+r^*)^j}
+\]
+
+Iteramos hacia adelante $T$ veces. En cada periodo el hogar ahorra y se endeuda, obteniendo:
+\[
+    (1+r^*) d_{t-1} = \sum_{j=0}^{T} \frac{y_{t+j} - c_{t+j}}{(1+r^*)^j} + \frac{d_{t+T}}{(1+r^*)^T}
+\]
+
+\paragraph{Paso 2: Derivar respecto a $\varepsilon_t$.}
+
+\[
+    \frac{\partial}{\partial \varepsilon_t} (1+r^*) d_{t-1}
+    = \sum_{j=0}^{T} \frac{1}{(1+r^*)^j} \frac{\partial(y_{t+j} - c_{t+j})}{\partial \varepsilon_t}
+    + \frac{1}{(1+r^*)^T} \frac{\partial d_{t+T}}{\partial \varepsilon_t}
+\]
+
+El lado izquierdo se refiere al periodo $t-1$, antes del shock $\varepsilon_t$, por tanto su derivada es cero:
+\[
+    0 = \sum_{j=0}^{T} \frac{1}{(1+r^*)^j} \frac{\partial(y_{t+j} - c_{t+j})}{\partial \varepsilon_t}
+    + \frac{1}{(1+r^*)^T} \frac{\partial d_{t+T}}{\partial \varepsilon_t}
+\]
+
+\paragraph{Paso 3: Usar la definicion de CA para telescopar.}
+
+De la ecuacion (5) sabemos que:
+\[
+    ca_{t+j} = -(d_{t+j} - d_{t+j-1})
+\]
+
+Derivando respecto a $\varepsilon_t$:
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = -\frac{\partial d_{t+j}}{\partial \varepsilon_t} + \frac{\partial d_{t+j-1}}{\partial \varepsilon_t}
+\]
+
+Sumamos de $j=0$ hasta $j=T$. Esta es una \textbf{suma telescopica}: todos los terminos intermedios se cancelan entre si, quedando solo el primer y el ultimo termino:
+\[
+    \sum_{j=0}^{T} \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = \frac{\partial d_{t-1}}{\partial \varepsilon_t} - \frac{\partial d_{t+T}}{\partial \varepsilon_t}
+\]
+
+El termino $\partial d_{t-1}/\partial \varepsilon_t = 0$ porque en $t-1$ el shock aun no ha ocurrido. Por tanto:
+
+\begin{resultado}
+\[
+    \sum_{j=0}^{T} \frac{\partial ca_{t+j}}{\partial \varepsilon_t} = -\frac{\partial d_{t+T}}{\partial \varepsilon_t}
+\]
+\end{resultado}
+
+\subsection*{ii) Que ocurre cuando $T \to \infty$?}
+
+Bajo el esquema de no-Ponzi, el pais no puede endeudarse de manera infinita, por lo que el limite de la deuda es finito:
+
+\[
+    \sum_{j=0}^{\infty} \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = -\lim_{T \to \infty} \frac{\partial d_{t+T}}{\partial \varepsilon_t}
+\]
+
+\begin{interpretacion}
+El lado izquierdo es la suma de todas las respuestas futuras de la CA al shock; el lado derecho es el cambio permanente en la deuda. Esta ecuacion nos muestra que la deuda del pais se paga a traves de la CA: la suma de todos los superavits futuros tiene que ser exactamente suficiente para cubrir el cambio en la deuda generado por el shock.
+\end{interpretacion}
+
+\subsection*{iii) Demostrar que $\displaystyle\lim_{T\to\infty} \dfrac{\partial d_{t+T}}{\partial \varepsilon_t} = -(1 - \Gamma^T e_1)$}
+
+\paragraph{Paso 1: Aplicar la ecuacion (17).}
+
+Usamos la ecuacion (17):
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1
+\]
+
+Aplicamos sumatoria en ambos lados de $j=0$ a $\infty$:
+\[
+    \sum_{j=0}^{\infty} \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = (\mathbf{e}_1^T - \Gamma^T) \sum_{j=0}^{\infty} F^j e_1
+\]
+
+\paragraph{Paso 2: Usar la condicion de estacionariedad.}
+
+La condicion de debil estacionariedad del proceso AR($p$) requiere que los valores propios de $F$ satisfagan $|\lambda_i| < 1$ para todo $i$. Con esta condicion, la serie geometrica de matrices converge:
+\[
+    \sum_{j=0}^{\infty} F^j = (I - F)^{-1}
+\]
+
+Sustituyendo:
+\[
+    \sum_{j=0}^{\infty} \frac{\partial ca_{t+j}}{\partial \varepsilon_t}
+    = (\mathbf{e}_1^T - \Gamma^T)(I - F)^{-1} e_1
+\]
+
+\paragraph{Paso 3: Expandir y calcular cada termino.}
+
+Expandimos el producto:
+\[
+    (\mathbf{e}_1^T - \Gamma^T)(I-F)^{-1}e_1
+    = \mathbf{e}_1^T(I-F)^{-1}e_1 - \Gamma^T(I-F)^{-1}e_1
+\]
+
+Sea $\mathbf{a} = (I-F)^{-1}e_1$, es decir el vector que resuelve $(I-F)\mathbf{a} = e_1$.
+
+\textbf{Termino 1:} $\mathbf{e}_1^T \mathbf{a} = a_1$ (el primer elemento de $\mathbf{a}$).
+
+\textbf{Termino 2:} $\Gamma^T \mathbf{a}$.
+
+Resolviendo $(I-F)\mathbf{a} = e_1$ fila por fila (igual que en el item 13 pero con $r^* = 0$) se obtiene:
+\[
+    a_1 = \frac{1}{1 - \sum_k \rho_k}
+\]
+
+Y ademas: $\Gamma^T \mathbf{a} = \Gamma^T e_1 \cdot a_1$.
+
+\paragraph{Paso 4: Combinar y normalizar.}
+
+\[
+    (\mathbf{e}_1^T - \Gamma^T)(I-F)^{-1}e_1
+    = a_1 - \Gamma^T e_1 \cdot a_1
+    = a_1(1 - \Gamma^T e_1)
+\]
+
+Normalizando $a_1 = 1$:
+\[
+    (\mathbf{e}_1^T - \Gamma^T)(I-F)^{-1}e_1 = 1 - \Gamma^T e_1
+\]
+
+\paragraph{Paso 5: Sustituir en el limite.}
+
+Usando el resultado de (ii), $\sum_{j=0}^\infty \partial ca_{t+j}/\partial\varepsilon_t = -\lim_{T\to\infty} \partial d_{t+T}/\partial \varepsilon_t$:
+\[
+    -\lim_{T\to\infty} \frac{\partial d_{t+T}}{\partial \varepsilon_t} = 1 - \Gamma^T e_1
+\]
+
+\begin{resultado}
+\[
+    \lim_{T\to\infty} \frac{\partial d_{t+T}}{\partial \varepsilon_t} = -(1 - \Gamma^T e_1)
+\]
+\textbf{Interpretacion:} Ante un shock, el nivel de deuda cambia de manera permanente. Aunque el shock sea transitorio, el pais acumula deuda, consume mas de lo que produce, y una vez pasado el shock, el nivel de deuda ya no regresa al nivel pre-shock. Incluso cuando $T \to \infty$, la deuda no se recupera.
+\end{resultado}
+
+% ==================================================================
+\section*{Ítem 13}
+% ==================================================================
+
+\subsection*{i) Demostrar que $\Gamma^T e_1 = \dfrac{r^*/(1+r^*)}{1 - \dfrac{1}{1+r^*}\sum_{k=1}^{p} \dfrac{\rho_k}{(1+r^*)^{k-1}}}$}
+
+\paragraph{Paso 1: Construccion de la matriz $A$.}
+
+Partimos de la matriz:
+\[
+    A = I_p - \frac{F}{1+r^*}
+\]
+
+La matriz companera $F$ es:
+\[
+    F = \begin{pmatrix}
+        \rho_1 & \rho_2 & \rho_3 & \cdots & \rho_p \\
+        1 & 0 & 0 & \cdots & 0 \\
+        0 & 1 & 0 & \cdots & 0 \\
+        \vdots & & \ddots & & \vdots \\
+        0 & 0 & \cdots & 1 & 0
+    \end{pmatrix}
+\]
+
+Entonces $A = I_p - F/(1+r^*)$ resulta:
+\[
+    A = \begin{pmatrix}
+        1 - \dfrac{\rho_1}{1+r^*} & -\dfrac{\rho_2}{1+r^*} & -\dfrac{\rho_3}{1+r^*} & \cdots & -\dfrac{\rho_p}{1+r^*} \\[8pt]
+        -\dfrac{1}{1+r^*} & 1 & 0 & \cdots & 0 \\[8pt]
+        0 & -\dfrac{1}{1+r^*} & 1 & \cdots & 0 \\[4pt]
+        \vdots & & \ddots & \ddots & \vdots \\[4pt]
+        0 & 0 & \cdots & -\dfrac{1}{1+r^*} & 1
+    \end{pmatrix}
+\]
+
+\paragraph{Paso 2: Resolver el sistema $A\mathbf{x} = e_1$.}
+
+El sistema es:
+\[
+    \begin{pmatrix}
+        1 - \dfrac{\rho_1}{1+r^*} & -\dfrac{\rho_2}{1+r^*} & \cdots & -\dfrac{\rho_p}{1+r^*} \\[8pt]
+        -\dfrac{1}{1+r^*} & 1 & \cdots & 0 \\[4pt]
+        \vdots & \ddots & \ddots & \vdots \\[4pt]
+        0 & \cdots & -\dfrac{1}{1+r^*} & 1
+    \end{pmatrix}
+    \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_p \end{pmatrix}
+    = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}
+\]
+
+Empezamos por la ultima fila (es la mas simple). La fila $p$ de $A$ es:
+$(0, 0, \ldots, -\tfrac{1}{1+r^*}, 1)$. Multiplicando por $\mathbf{x}$:
+\[
+    -\frac{x_{p-1}}{1+r^*} + x_p = 0
+    \quad\Longrightarrow\quad
+    x_p = \frac{x_{p-1}}{1+r^*}
+\]
+
+La fila $p-1$:
+\[
+    -\frac{x_{p-2}}{1+r^*} + x_{p-1} = 0
+    \quad\Longrightarrow\quad
+    x_{p-1} = \frac{x_{p-2}}{1+r^*}
+\]
+
+Siguiendo el patron desde la ultima fila hacia la primera:
+\[
+    x_k = \frac{x_1}{(1+r^*)^{k-1}}, \quad k = 1, 2, \ldots, p
+\]
+
+\paragraph{Paso 3: Resolver la primera fila.}
+
+Sustituyendo el patron $x_k = x_1/(1+r^*)^{k-1}$ en la fila 1:
+\[
+    \left(1 - \frac{\rho_1}{1+r^*}\right)x_1
+    - \frac{\rho_2}{1+r^*} \cdot \frac{x_1}{1+r^*}
+    - \frac{\rho_3}{1+r^*} \cdot \frac{x_1}{(1+r^*)^2}
+    - \cdots
+    - \frac{\rho_p}{1+r^*} \cdot \frac{x_1}{(1+r^*)^{p-1}} = 1
+\]
+
+Factorizando $x_1$:
+\[
+    x_1 \left(1 - \frac{1}{1+r^*} \sum_{k=1}^{p} \frac{\rho_k}{(1+r^*)^{k-1}}\right) = 1
+\]
+
+Despejando $x_1$:
+\[
+    x_1 = \frac{1}{1 - \dfrac{1}{1+r^*} \displaystyle\sum_{k=1}^{p} \dfrac{\rho_k}{(1+r^*)^{k-1}}}
+\]
+
+\paragraph{Paso 4: Sustituir en la expresion de $\Gamma^T e_1$.}
+
+De la ecuacion (13):
+\[
+    \Gamma^T = \frac{r^*}{1+r^*} \mathbf{e}_1^T \left(I_p - \frac{F}{1+r^*}\right)^{-1}
+    = \frac{r^*}{1+r^*} \mathbf{e}_1^T A^{-1}
+\]
+
+Entonces:
+\[
+    \Gamma^T e_1 = \frac{r^*}{1+r^*} \mathbf{e}_1^T A^{-1} e_1 = \frac{r^*}{1+r^*} x_1
+\]
+
+Sustituyendo $x_1$:
+
+\begin{resultado}
+\[
+    \Gamma^T e_1 = \frac{r^*/(1+r^*)}{1 - \dfrac{1}{1+r^*} \displaystyle\sum_{k=1}^{p} \dfrac{\rho_k}{(1+r^*)^{k-1}}}
+\]
+\end{resultado}
+
+\subsection*{ii) Demostrar que $\dfrac{\partial ca_{t+j}}{\partial \varepsilon_t} = 0$ para todo $j \geq 0$ bajo la condicion (18)}
+
+\paragraph{Paso 1: Verificar que la condicion (18) implica $\Gamma^T e_1 = 1$.}
+
+La condicion (18) establece:
+\[
+    \sum_{k=1}^{p} \frac{\rho_k}{(1+r^*)^{k-1}} = 1
+\]
+
+Sustituyendo en el denominador del resultado anterior:
+\[
+    1 - \frac{1}{1+r^*} \cdot 1 = 1 - \frac{1}{1+r^*} = \frac{r^*}{1+r^*}
+\]
+
+Por tanto:
+\[
+    \Gamma^T e_1 = \frac{r^*/(1+r^*)}{r^*/(1+r^*)} = 1
+\]
+
+\paragraph{Paso 2: Concluir sobre la CA.}
+
+Si $\Gamma^T e_1 = 1$, entonces $\Gamma^T = \mathbf{e}_1^T$, y por tanto:
+\[
+    (\mathbf{e}_1^T - \Gamma^T) F^j e_1 = \mathbf{0}^T F^j e_1 = 0
+\]
+
+\begin{resultado}
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t} = 0 \quad \forall\, j \geq 0
+\]
+\end{resultado}
+
+\begin{interpretacion}
+La cuenta corriente no actua como amortiguador porque para que lo hiciera deberia existir una diferencia entre el ingreso corriente y el permanente, y la condicion (18) garantiza que esa diferencia sea cero en todos los periodos. Los hogares saben que su ingreso se desplazara de manera permanente y no regresara al nivel anterior, por lo tanto ajustan su consumo al nivel del nuevo ingreso sin endeudarse.
+\end{interpretacion}
+
+% ==================================================================
+\section*{ítem 14}
+% ==================================================================
+
+\subsection*{i) Demostrar que $y_t^p = \dfrac{\Gamma^T F^{k-t} e_1}{(1+r^*)^{k-t}}$ para $0 \leq t \leq k$}
+
+\paragraph{Paso 1: Incorporar el shock futuro al vector de estados.}
+
+Tenemos en cuenta que $\varepsilon_k = 1$. El shock $\varepsilon_k = 1$ entra al sistema en $k$ unicamente a traves del primer elemento del vector de perturbaciones, es decir como $v_k = e_1$.
+
+Usando la ecuacion (7): $\mathbb{E}_t[\xi_{t+j}] = F^j \xi_t$, el vector de estados en el periodo $k$ es:
+\[
+    \mathbb{E}_t[\xi_k] = F^{k-t}\xi_t + e_1 = e_1
+\]
+(recordamos que $\xi_t = 0$ porque $Y_t = 0$ en el estado estacionario).
+
+Para periodos posteriores al shock, el efecto se propaga mediante $F$:
+\[
+    \mathbb{E}_t[\xi_{t+j}] = F^{j-(k-t)} e_1, \quad j \geq k-t
+\]
+
+\paragraph{Paso 2: Descontar el shock al presente.}
+
+El shock esta $k-t$ periodos en el futuro, por lo que debe descontarse al presente. El $\xi_t$ efectivo que incorpora la informacion del shock futuro es:
+\[
+    \xi_t^{\text{efectivo}} = \frac{F^{k-t} e_1}{(1+r^*)^{k-t}}
+\]
+
+El factor $(1+r^*)^{k-t}$ en el denominador aparece porque el shock esta $k-t$ periodos en el futuro.
+
+\paragraph{Paso 3: Aplicar la ecuacion (12).}
+
+De la ecuacion (12): $y_t^p = \Gamma^T \xi_t$. Sustituyendo $\xi_t^{\text{efectivo}}$:
+
+\begin{resultado}
+\[
+    y_t^p = \frac{\Gamma^T F^{k-t} e_1}{(1+r^*)^{k-t}}, \quad 0 \leq t < k
+\]
+\end{resultado}
+
+\subsection*{ii) Demostrar que $y_t^p$ es estrictamente decreciente en la distancia $k-t$}
+
+Sea $d = k-t$ la distancia al shock. Reemplazando:
+\[
+    y_t^p = \frac{\Gamma^T F^d e_1}{(1+r^*)^d}
+\]
+
+Cuando $d$ aumenta:
+\begin{itemize}
+    \item El denominador $(1+r^*)^d$ crece exponencialmente con $d$.
+    \item El numerador $\Gamma^T F^d e_1$ decrece porque los eigenvalores de $F$ son menores a 1 (condicion de estacionariedad), haciendo que $F^d \to 0$.
+    \item Ambos efectos actuan en la misma direccion: $y_t^p$ cae cuando aumenta la distancia.
+\end{itemize}
+
+\begin{interpretacion}
+Hay sentido economico: el hogar valora mas el ingreso mas cercano que el futuro (valor del dinero en el tiempo). Si el shock ocurrira en muchos periodos, su valor presente es menor, por lo que el ingreso permanente aumenta menos y el ajuste del consumo es menor.
+\end{interpretacion}
+
+\subsection*{iii) Demostrar que $ca_t = -\dfrac{\Gamma^T F^{k-t} e_1}{(1+r^*)^{k-t}} < 0$}
+
+Partimos de la definicion de CA:
+\[
+    ca_t = y_t - y_t^p
+\]
+
+Durante $0 \leq t < k$, la economia esta en estado estacionario, entonces $y_t = 0$.
+
+Sustituyendo la ecuacion (19) demostrada en (i):
+\[
+    ca_t = 0 - \frac{\Gamma^T F^{k-t} e_1}{(1+r^*)^{k-t}}
+\]
+
+\begin{resultado}
+\[
+    ca_t = -\frac{\Gamma^T F^{k-t} e_1}{(1+r^*)^{k-t}} < 0
+\]
+El pais se endeuda antes de recibir el ingreso porque ya sabe que en el futuro tendra un ingreso permanente mayor. Esto le da incentivos para consumir mas hoy y endeudarse, pagando esa deuda con el superavit generado por el shock en $k$.
+\end{resultado}
+
+Para que haya deficit estrictamente positivo ($ca_t < 0$) se requiere:
+\[
+    \Gamma^T F^{k-t} e_1 > 0
+\]
+
+% ==================================================================
+\section*{Ítem 15}
+% ==================================================================
+
+\subsection*{i) Demostrar que para $t \geq k$: $\dfrac{\partial ca_{t+j}}{\partial \varepsilon_k} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1$}
+
+\paragraph{Argumento.}
+
+En $t \geq k$ el shock ya ocurrio; ya no existe incertidumbre sobre el, por lo que el modelo ``olvida'' que el shock fue anticipado.
+
+De manera general, la expresion:
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_t} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1
+\]
+nos dice como responde la CA si el shock ocurre en $t$. En este caso el shock ocurre en el periodo $k$, por lo que la dinamica se expresa en terminos de $\varepsilon_k$ y se evalua a partir de dicho periodo:
+
+\begin{resultado}
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_k} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1
+\]
+La anticipacion no altera la dinamica posterior al shock porque una vez que ocurrio, la dinamica depende solo del estado actual del sistema $\xi_t$, que ya contiene toda la informacion relevante de los periodos anteriores.
+\end{resultado}
+
+\subsection*{ii) Demostrar que $|R_{\text{ant}}(k)| < |R_{\text{noant}}|$ para todo $k \geq 1$}
+
+\paragraph{Definiciones.}
+
+Caso no anticipado:
+\[
+    R_{\text{noant}} = 1 - \Gamma^T e_1
+\]
+Caso anticipado ($k$ periodos antes):
+\[
+    R_{\text{ant}}(k) = -\frac{\Gamma^T F^k e_1}{(1+r^*)^k}
+\]
+
+\paragraph{Argumento.}
+
+Observamos que $R_{\text{ant}}(k)$ tiene dos efectos que lo hacen mas pequeno en valor absoluto cuando $k$ crece:
+
+\begin{enumerate}
+    \item \textbf{Descuento intertemporal:} el denominador $(1+r^*)^k$ crece con $k$, reduciendo el valor presente.
+    \item \textbf{Amortiguamiento de $F^k$:} como el modelo es estacionario (eigenvalores de $F$ menores a 1), $F^k \to 0$ cuando $k \to \infty$, haciendo que el numerador $\Gamma^T F^k e_1$ caiga.
+\end{enumerate}
+
+Ambos efectos reducen $|R_{\text{ant}}(k)|$ respecto a $|R_{\text{noant}}|$.
+
+\begin{resultado}
+\[
+    |R_{\text{ant}}(k)| < |R_{\text{noant}}| \quad \forall\, k \geq 1
+\]
+La anticipacion distribuye la respuesta de la CA a lo largo del tiempo en lugar de concentrarla en un unico periodo. Los consumidores suavizan intertemporalmente su consumo desde que reciben la noticia del shock.
+\end{resultado}
+
+% ==================================================================
+\section*{Ítem 16}
+% ==================================================================
+
+\paragraph{a) Fase pre-shock ($t < k$).}
+
+Los hogares saben que en el periodo $k$ ocurrira un shock positivo transitorio anticipado. Esto hace que su ingreso permanente suba un poco, aunque su ingreso corriente no cambie. Los consumidores tienen incentivos a consumir mas de lo que producen, endeudandose con la certeza de que en el futuro podran pagar esa deuda con el superavit generado por el shock. Como saben que es un shock transitorio, no consumen todo de golpe sino que distribuyen el consumo a lo largo de los periodos. Este comportamiento es analogo al de alguien que pide un prestamo hoy porque sabe que recibira un bono laboral el proximo mes.
+
+\paragraph{b) En el momento del shock ($t = k$): comparacion anticipado vs.\ no anticipado.}
+
+\textbf{Shock transitorio anticipado:} los hogares ya habian ajustado su consumo desde periodos anteriores; iban aumentando el consumo y financiandose con deuda. Al llegar el momento del shock, el hogar usa el ingreso para pagar la deuda acumulada.
+
+\textbf{Shock transitorio no anticipado:} los hogares reciben el shock por sorpresa. Tanto el ingreso permanente como el corriente suben al mismo tiempo, generando un desajuste mucho mayor.
+
+Por eso la respuesta de la CA es menor en valor absoluto en el caso anticipado. La fraccion del ajuste ya realizada antes del shock se puede calcular como:
+\[
+    \text{fraccion pre-shock} = \frac{|R_{\text{noant}}| - |R_{\text{ant}}(k)|}{|R_{\text{noant}}|}
+\]
+Cuanto mas cercano estaba el shock, mayor es esta fraccion porque el hogar tenia mas incentivo a ajustar rapidamente.
+
+\paragraph{c) IRF post-shock: misma respuesta para anticipado y no anticipado.}
+
+La IRF mide la variacion de la CA ante el shock:
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_k}
+\]
+
+Una vez que ocurre el shock, tanto la persona que lo anticipo como la que no lo anticipo pasan por el mismo shock transitorio: el ingreso subira y luego caera. La brecha entre ingreso corriente y permanente es la misma para ambos, lo que se refleja en el factor $(\mathbf{e}_1^T - \Gamma^T)$.
+
+\begin{resultado}
+Post-shock, la variacion de la CA es identica en el caso anticipado y en el no anticipado:
+\[
+    \frac{\partial ca_{t+j}}{\partial \varepsilon_k} = (\mathbf{e}_1^T - \Gamma^T) F^j e_1 \quad \text{para ambos casos}
+\]
+Lo que difiere es el \textbf{nivel} de la CA (y de la deuda acumulada) al momento del shock, no la variacion marginal.
+\end{resultado}

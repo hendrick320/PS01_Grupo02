@@ -1,0 +1,497 @@
+\begin{center}
+    {\LARGE \textbf{Parte III}}\\[6pt]
+\end{center}
+\vspace{4pt}\hrule\vspace{10pt}
+
+% ==================================================================
+\subsection*{Entendiendo el \textit{environment}}
+% ==================================================================
+
+Se considera una economía mundial formada por $N \geq 2$ países indexados por
+$i \in \{1, \ldots, N\}$.
+Cada país $i$ tiene preferencias \textbf{logarítmicas} con factores de descuento
+\textbf{heterogéneos}:
+\[
+    U_i = \ln(c_{i,1}) + \beta_i \ln(c_{i,2}), \qquad \beta_i \in (0,1).
+\]
+
+La \textbf{restricción presupuestaria} del hogar representativo en cada período es:
+\begin{equation}\label{eq:rp}
+    c_{i,t} + (1+r^*)\,d_{i,t-1} = y_{i,t} + d_{i,t},
+\end{equation}
+donde $d_{i,t}>0$ indica deuda neta asumida en $t$ y exigible en $t+1$,
+y $r^*>0$ es la tasa de interés mundial (endógena en esta parte).
+
+La condición de \textbf{no-Ponzi} es:
+\[
+    \lim_{j\to\infty} \mathbb{E}_t \frac{d_{i,t+j}}{(1+r^*)^j} \leq 0.
+\]
+
+Se asume que $\beta_i(1+r^*)=1$ y que cada hogar \textbf{inicia sin deuda}:
+$d_{i,0}=0$.
+
+Se definen la \textbf{balanza comercial} y la \textbf{cuenta corriente} como:
+\[
+    tb_{i,t} = y_{i,t} - c_{i,t}, \qquad
+    ca_{i,t} = tb_{i,t} - r^*\,d_{i,t-1} = -(d_{i,t} - d_{i,t-1}).
+\]
+
+% ==================================================================
+\subsection*{Ítem 17}
+% ==================================================================
+
+\subsubsection*{Planteamiento}
+
+El hogar del país $i$ resuelve:
+\[
+    \max_{c_{i,1},\, c_{i,2}} \;\; \ln(c_{i,1}) + \beta_i \ln(c_{i,2}).
+\]
+
+\paragraph{Variables de control y de estado.}
+\begin{itemize}
+    \item \textbf{Variables de control:} $c_{i,1}$, $c_{i,2}$.
+    \item \textbf{Variables de estado:} $\lambda$ (multiplicador de Lagrange), $r^*$.
+\end{itemize}
+
+\subsubsection*{Derivación de la Restricción Presupuestaria Intertemporal (RPI)}
+
+Escribimos las restricciones período a período usando \eqref{eq:rp}.
+Con $d_{i,0}=0$ y la condición de transversalidad ($d_{i,2}=0$, los hogares
+mueren sin deuda):
+
+\medskip
+\textit{Período 1:}
+\[
+    c_{i,1} + \underbrace{(1+r^*)\cdot 0}_{=0} = y_{i,1} + d_{i,1}
+    \quad\Longrightarrow\quad
+    c_{i,1} = y_{i,1} + d_{i,1}.
+\]
+
+\textit{Período 2:}
+\[
+    c_{i,2} + (1+r^*)\,d_{i,1} = y_{i,2} + \underbrace{d_{i,2}}_{=0}
+    \quad\Longrightarrow\quad
+    c_{i,2} + (1+r^*)\,d_{i,1} = y_{i,2}.
+\]
+
+Despejamos $d_{i,1}$ de la ecuación del período 1:
+\[
+    d_{i,1} = c_{i,1} - y_{i,1}.
+\]
+Sustituimos en la ecuación del período 2:
+\[
+    c_{i,2} + (1+r^*)(c_{i,1} - y_{i,1}) = y_{i,2}.
+\]
+Expandimos y reordenamos llevando los términos de consumo a la izquierda y los
+de ingreso a la derecha:
+\[
+    c_{i,2} + (1+r^*)c_{i,1} - (1+r^*)y_{i,1} = y_{i,2}.
+\]
+\[
+    (1+r^*)c_{i,1} + c_{i,2} = y_{i,2} + (1+r^*)y_{i,1}.
+\]
+Dividimos todo entre $(1+r^*)$:
+
+\begin{equation}\label{eq:rpi}
+    \boxed{c_{i,1} + \frac{c_{i,2}}{1+r^*} = y_{i,1} + \frac{y_{i,2}}{1+r^*}.}
+\end{equation}
+
+Esta es la \textbf{RPI}: el valor presente del consumo debe igualar el valor
+presente del ingreso.
+
+\subsubsection*{Lagrangiano y Condiciones de Primer Orden (CPO)}
+
+Formamos el Lagrangiano:
+\[
+\mathcal{L} = \ln(c_{i,1}) + \beta_i \ln(c_{i,2})
+              + \lambda \!\left[y_{i,1} + \frac{y_{i,2}}{1+r^*}
+              - c_{i,1} - \frac{c_{i,2}}{1+r^*}\right].
+\]
+
+\paragraph{CPO respecto a $c_{i,1}$:}
+\[
+    \frac{\partial \mathcal{L}}{\partial c_{i,1}} = \frac{1}{c_{i,1}} - \lambda = 0
+    \quad\xrightarrow{(b)}\quad
+    \lambda = \frac{1}{c_{i,1}}.
+    \tag{b}
+\]
+
+\paragraph{CPO respecto a $c_{i,2}$:}
+\[
+    \frac{\partial \mathcal{L}}{\partial c_{i,2}}
+    = \frac{\beta_i}{c_{i,2}} - \frac{\lambda}{1+r^*} = 0
+    \quad\xrightarrow{(b)}\quad
+    \lambda = \frac{(1+r^*)\beta_i}{c_{i,2}}.
+    \tag{b}
+\]
+
+\paragraph{CPO respecto a $\lambda$ (factibilidad):}
+\[
+    \frac{\partial \mathcal{L}}{\partial \lambda}
+    = y_{i,1} + \frac{y_{i,2}}{1+r^*} - c_{i,1} - \frac{c_{i,2}}{1+r^*} = 0.
+    \tag{iv}
+\]
+
+\subsubsection*{Ecuación de Euler}
+
+Igualamos las dos expresiones para $\lambda$:
+\[
+    \frac{1}{c_{i,1}} = \frac{(1+r^*)\beta_i}{c_{i,2}}.
+\]
+Multiplicamos cruzado:
+\[
+    c_{i,2} = (1+r^*)\,\beta_i\, c_{i,1}.
+    \tag{5}\label{eq:euler}
+\]
+Esta es la \textbf{ecuación de Euler}: el consumo crece de período 1 a período 2
+a una tasa que depende de la paciencia $\beta_i$ y de la tasa de interés.
+
+\subsubsection*{Condición de transversalidad y condición de limpieza}
+
+\begin{condicion}[Transversalidad]
+Los hogares mueren sin deuda al final del período 2:
+\[
+    d_{i,2} = 0.
+\]
+\textit{Intuición: ``No tiene sentido guardar todo y nunca disfrutarlo.''}
+\end{condicion}
+
+\begin{condicion}[Limpieza de mercado --- suma de deudas]
+En el mercado internacional de deuda, la posición del mundo en el modelo
+SOE debe ser cero. La suma de las deudas de todos los países debe ser cero:
+\[
+    \sum_{i=1}^{N} d_{i,1} = 0.
+\]
+\textit{Hay alguien que presta y otro que recibe, la suma debe ser cero.}
+\end{condicion}
+
+% ==================================================================
+\subsection*{Ítem 18}
+% ==================================================================
+
+\subsubsection*{Consumo óptimo en período 1}
+
+Partimos de la RPI \eqref{eq:rpi}:
+\[
+    c_{i,1} + \frac{c_{i,2}}{1+r^*} = y_{i,1} + \frac{y_{i,2}}{1+r^*}.
+\]
+
+Sustituimos la ecuación de Euler \eqref{eq:euler},
+$c_{i,2} = (1+r^*)\beta_i c_{i,1}$, en la RPI:
+\[
+    c_{i,1} + \frac{(1+r^*)\beta_i\, c_{i,1}}{1+r^*}
+    = y_{i,1} + \frac{y_{i,2}}{1+r^*}.
+\]
+Simplificamos $(1+r^*)$ en el segundo término del lado izquierdo:
+\[
+    c_{i,1} + \beta_i\, c_{i,1} = y_{i,1} + \frac{y_{i,2}}{1+r^*}.
+\]
+Factorizamos $c_{i,1}$:
+\[
+    c_{i,1}(1 + \beta_i) = y_{i,1} + \frac{y_{i,2}}{1+r^*}.
+\]
+Despejamos:
+\begin{equation}\label{eq:c1}
+    \boxed{c_{i,1}^* = \frac{1}{1+\beta_i}\left[y_{i,1} + \frac{y_{i,2}}{1+r^*}\right].}
+    \tag{6}
+\end{equation}
+
+\subsubsection*{Consumo óptimo en período 2}
+
+Sustituimos $c_{i,1}^*$ en la ecuación de Euler \eqref{eq:euler}:
+\[
+    c_{i,2}^* = (1+r^*)\,\beta_i\, c_{i,1}^*
+    = (1+r^*)\,\beta_i \cdot \frac{1}{1+\beta_i}
+      \left[y_{i,1} + \frac{y_{i,2}}{1+r^*}\right].
+\]
+
+\begin{equation}\label{eq:c2}
+    \boxed{c_{i,2}^* = \frac{\beta_i(1+r^*)}{1+\beta_i}
+    \left[y_{i,1} + \frac{y_{i,2}}{1+r^*}\right].}
+    \tag{7}
+\end{equation}
+
+\subsubsection*{Deuda óptima}
+
+\textit{Nota: solo hay $d_{i,1}$ en el primer período, pues por transversalidad
+$d_{i,2}=0$.}
+
+De la restricción presupuestaria del período 1:
+\[
+    c_{i,1} = y_{i,1} + d_{i,1}
+    \quad\Longrightarrow\quad
+    d_{i,1} = c_{i,1} - y_{i,1}.
+    \tag{8}
+\]
+
+Sustituimos $c_{i,1}^*$ de \eqref{eq:c1} en (8):
+\[
+    d_{i,1}^* = \frac{1}{1+\beta_i}\left[y_{i,1} + \frac{y_{i,2}}{1+r^*}\right] - y_{i,1}.
+\]
+Ponemos $y_{i,1}$ con el mismo denominador $(1+\beta_i)$:
+\[
+    d_{i,1}^* = \frac{y_{i,1} + \dfrac{y_{i,2}}{1+r^*} - (1+\beta_i)\,y_{i,1}}{1+\beta_i}.
+\]
+Expandimos el numerador:
+\[
+    d_{i,1}^* = \frac{y_{i,1} + \dfrac{y_{i,2}}{1+r^*} - y_{i,1} - \beta_i\,y_{i,1}}{1+\beta_i}
+    = \frac{\dfrac{y_{i,2}}{1+r^*} - \beta_i\,y_{i,1}}{1+\beta_i}.
+\]
+
+\begin{resultado}
+\[
+    d_{i,1}^* = \frac{\dfrac{y_{i,2}}{1+r^*} - \beta_i\,y_{i,1}}{1+\beta_i}.
+\]
+\end{resultado}
+
+\subsubsection*{¿Deudor neto o acreedor neto?}
+
+\begin{condicion}[Deudor neto --- $d_{i,1}^* > 0$]
+\[
+    d_{i,1}^* > 0
+    \;\Longleftrightarrow\;
+    \frac{y_{i,2}}{1+r^*} > \beta_i\,y_{i,1}
+    \;\Longleftrightarrow\;
+    y_{i,2} > (1+r^*)\,\beta_i\,y_{i,1}.
+\]
+\textit{Intuición: el ingreso futuro es relativamente alto, el hogar prefiere
+endeudarse hoy para suavizar consumo. La impaciencia al consumo es mayor
+que el premio al ahorro $\Rightarrow$ el hogar es relativamente impaciente
+a la tasa internacional.}
+\end{condicion}
+
+\begin{condicion}[Acreedor neto --- $d_{i,1}^* < 0$]
+\[
+    d_{i,1}^* < 0
+    \;\Longleftrightarrow\;
+    y_{i,2} < (1+r^*)\,\beta_i\,y_{i,1}.
+\]
+\textit{Intuición: $(1+r^*)\beta_i > 1$ premia el ahorro más de lo que los
+hogares valoran el consumo presente $\Rightarrow$ el mercado incentiva a ser
+acreedor.}
+\end{condicion}
+
+\subsubsection*{Balanza Comercial (Trade Balance)}
+
+De la restricción presupuestaria del período 1,
+$c_{i,1} = y_{i,1} + d_{i,1}$, tenemos que las exportaciones netas son:
+\[
+    y_{i,1} - c_{i,1} = -d_{i,1}.
+\]
+Por lo tanto:
+\[
+    TB_{i,1} = y_{i,1} - c_{i,1} = -d_{i,1}^*.
+    \quad\Longrightarrow\quad \boxed{TB_{i,1} = -d_{i,1}^*.}
+\]
+\textit{Soy acreedor en $t=1$ (presto dinero al exterior).}
+
+De la restricción del período 2,
+$c_{i,2} + (1+r^*)d_{i,1} = y_{i,2}$:
+\[
+    y_{i,2} - c_{i,2} = (1+r^*)d_{i,1}.
+\]
+\[
+    TB_{i,2} = y_{i,2} - c_{i,2} = (1+r^*)\,d_{i,1}^*.
+    \quad\Longrightarrow\quad \boxed{TB_{i,2} = (1+r^*)\,d_{i,1}^*.}
+\]
+\textit{Soy deudor en $t=2$ (pago la deuda al exterior).}
+
+\subsubsection*{Cuenta Corriente}
+
+Dado que en $t=1$ el hogar no nace con deuda ($d_{i,0}=0$), la cuenta
+corriente coincide con la balanza comercial:
+\[
+    CA_{i,t} = TB_{i,t} - r^*\,d_{i,t-1}.
+\]
+
+\textit{Período 1:} Como $d_{i,0}=0$:
+\[
+    CA_{i,1} = TB_{i,1} - r^*\cdot 0 = TB_{i,1} = -d_{i,1}^*.
+\]
+
+Sustituyendo la expresión de $d_{i,1}^*$:
+\[
+    CA_{i,1} = -d_{i,1}^* = -\left[\frac{\dfrac{y_{i,2}}{1+r^*} - \beta_i\,y_{i,1}}{1+\beta_i}\right]
+    = \frac{\beta_i\,y_{i,1} - \dfrac{y_{i,2}}{1+r^*}}{1+\beta_i}.
+\]
+
+\begin{resultado}
+\[
+    CA_{i,1} = \frac{\beta_i\,y_{i,1} - \dfrac{y_{i,2}}{1+r^*}}{1+\beta_i}.
+\]
+\end{resultado}
+
+\textit{Período 2:}
+\[
+    CA_{i,2} = TB_{i,2} = (1+r^*)\,d_{i,1}^*
+    = (1+r^*)\left[\frac{\dfrac{y_{i,2}}{1+r^*} - \beta_i\,y_{i,1}}{1+\beta_i}\right].
+\]
+
+\begin{resultado}
+\[
+    CA_{i,2} = \frac{y_{i,2} - (1+r^*)\,\beta_i\,y_{i,1}}{1+\beta_i}.
+\]
+\end{resultado}
+
+% ==================================================================
+\subsection*{Ítem 19}
+% ==================================================================
+
+\subsubsection*{Condición de limpieza del mercado de deuda}
+
+La condición de limpieza es $\displaystyle\sum_{i=1}^{N} d_{i,1} = 0$.
+Sustituimos la expresión de $d_{i,1}^*$:
+
+\[
+    \sum_{i=1}^{N}
+    \frac{\dfrac{y_{i,2}}{1+r^*} - \beta_i\,y_{i,1}}{1+\beta_i} = 0.
+\]
+
+Separamos los dos términos de la suma:
+\[
+    \sum_{i=1}^{N} \frac{y_{i,2}}{(1+r^*)(1+\beta_i)}
+    - \sum_{i=1}^{N} \frac{\beta_i\,y_{i,1}}{1+\beta_i} = 0.
+\]
+
+Pasamos el segundo término al lado derecho:
+\[
+    \sum_{i=1}^{N} \frac{y_{i,2}}{(1+r^*)(1+\beta_i)}
+    = \sum_{i=1}^{N} \frac{\beta_i\,y_{i,1}}{1+\beta_i}.
+\]
+
+Factorizamos $\dfrac{1}{1+r^*}$ del lado izquierdo:
+\[
+    \frac{1}{1+r^*}\sum_{i=1}^{N} \frac{y_{i,2}}{1+\beta_i}
+    = \sum_{i=1}^{N} \frac{\beta_i\,y_{i,1}}{1+\beta_i}.
+\]
+
+Despejamos $1+r^*$:
+
+\begin{resultado}
+\begin{equation}\label{eq:rstar}
+    1 + r^* = \dfrac{\displaystyle\sum_{i=1}^{N} \dfrac{y_{i,2}}{1+\beta_i}}
+                    {\displaystyle\sum_{i=1}^{N} \dfrac{\beta_i\,y_{i,1}}{1+\beta_i}}.
+    \tag{23}
+\end{equation}
+\end{resultado}
+
+\subsubsection*{Caso: factor de descuento común ($\beta_i = \beta$ para todo $i$)}
+
+Si todos los países tienen la misma paciencia $\beta$, el factor
+$\dfrac{1}{1+\beta}$ (en numerador) y $\dfrac{\beta}{1+\beta}$ (en denominador)
+son constantes y salen de las sumas:
+\[
+    1 + r^* = \dfrac{\dfrac{1}{1+\beta}\displaystyle\sum_{i=1}^{N} y_{i,2}}
+               {\dfrac{\beta}{1+\beta}\displaystyle\sum_{i=1}^{N} y_{i,1}}.
+\]
+Cancelamos el factor común $(1+\beta)$ en numerador y denominador:
+\[
+    1 + r^* = \frac{\displaystyle\sum_{i=1}^{N} y_{i,2}}
+                   {\beta \displaystyle\sum_{i=1}^{N} y_{i,1}}.
+\]
+Multiplicamos ambos lados por $\beta$:
+
+\begin{resultado}
+\[
+    (1+r^*)\,\beta = \frac{\displaystyle\sum_{i=1}^{N} y_{i,2}}
+                          {\displaystyle\sum_{i=1}^{N} y_{i,1}}
+                  = \frac{\bar{Y}_2}{\bar{Y}_1},
+\]
+donde $\bar{Y}_t = \sum_{i=1}^N y_{i,t}$ es la \textbf{dotación mundial} en el
+período $t$.
+\end{resultado}
+
+\begin{interpretacion}
+Desde la perspectiva del \textbf{mercado de fondos prestables}:
+\begin{itemize}
+    \item El \textbf{numerador} de \eqref{eq:rstar} representa la oferta de bienes
+          futuros ponderada por la paciencia de cada país.
+    \item El \textbf{denominador} representa la demanda de ahorro presente
+          ponderada por la paciencia.
+    \item Con $\beta$ común: la tasa de interés queda determinada únicamente por
+          el cociente de dotaciones mundiales $\bar{Y}_2 / \bar{Y}_1$, es decir,
+          por el \textbf{crecimiento agregado de la economía global}.
+    \item La ecuación $(1+r^*)\beta = \bar{Y}_2/\bar{Y}_1$ es la ecuación de Euler
+          \textit{agregada}: la tasa de interés compensa exactamente la impaciencia
+          común ajustada por el crecimiento mundial.
+\end{itemize}
+\end{interpretacion}
+
+\subsubsection*{Descomposición de la cuenta corriente en componente agregado
+e idiosincrático}
+
+\paragraph{Definiciones.}
+Definimos:
+\begin{itemize}
+    \item Dotación mundial promedio en $t$:
+          $\bar{Y}_t \equiv \displaystyle\sum_{i=1}^N y_{i,t}$
+          y $\dfrac{\bar{Y}_t}{N}$ es el promedio por país.
+    \item Componente idiosincrático del ingreso del país $i$:
+          \[
+              y_{t,i} = \frac{\bar{Y}_t}{N} + \hat{y}_{t,i},
+          \]
+          donde $\hat{y}_{t,i}$ es la desviación del ingreso del país $i$
+          respecto al promedio mundial.
+\end{itemize}
+
+\paragraph{Sustitución en $CA_{i,1}$.}
+Partimos de:
+\[
+    CA_{i,1}^* = \frac{1}{1+\beta}\left(\beta\,y_{i,1} - \frac{y_{i,2}}{1+r^*}\right).
+\]
+
+Sustituimos $y_{t,i} = \dfrac{\bar{Y}_t}{N} + \hat{y}_{t,i}$:
+\[
+    CA_{i,1}^* = \frac{1}{1+\beta}
+    \left[\beta\left(\frac{\bar{Y}_1}{N} + \hat{y}_{i,1}\right)
+    - \frac{1}{1+r^*}\left(\frac{\bar{Y}_2}{N} + \hat{y}_{i,2}\right)\right].
+\]
+
+Distribuimos:
+\[
+    CA_{i,1}^* = \underbrace{\frac{1}{1+\beta}
+    \left[\beta\cdot\frac{\bar{Y}_1}{N} - \frac{\bar{Y}_2/N}{1+r^*}\right]}_{\text{Componente agregado}}
+    + \underbrace{\frac{1}{1+\beta}
+    \left[\beta\,\hat{y}_{i,1} - \frac{\hat{y}_{i,2}}{1+r^*}\right]}_{\text{Componente idiosincrático}}.
+\]
+
+\paragraph{Verificación: condición de limpieza $\sum CA_{i,1}^* = 0$.}
+
+Sumamos sobre todos los países. Con $\beta_i = \beta$:
+\[
+    \sum_{i=1}^N CA_{i,1}^* = \frac{1}{1+\beta}
+    \left[\beta\sum_{i=1}^N y_{i,1} - \frac{\sum_{i=1}^N y_{i,2}}{1+r^*}\right].
+\]
+Usando la condición de equilibrio $(1+r^*)\beta = \dfrac{\bar{Y}_2}{\bar{Y}_1}$,
+es decir $\dfrac{\bar{Y}_2}{1+r^*} = \beta\,\bar{Y}_1$:
+\[
+    \sum_{i=1}^N CA_{i,1}^* = \frac{1}{1+\beta}
+    \left[\beta\,\bar{Y}_1 - \frac{\bar{Y}_2}{1+r^*}\right]
+    = \frac{1}{1+\beta}\left[\beta\,\bar{Y}_1 - \beta\,\bar{Y}_1\right] = 0.
+    \quad\checkmark
+\]
+
+\paragraph{Conclusión.}
+
+\begin{resultado}
+\[
+    CA_{i,1}^* = \frac{1}{1+\beta}
+    \left(\beta\,\hat{y}_{i,1} - \frac{\hat{y}_{i,2}}{1+r^*}\right).
+\]
+La cuenta corriente \textbf{solo depende del componente idiosincrático}
+del ingreso de cada país ($\hat{y}_{i,t}$), no de la distribución
+idiosincrática mundial agregada.
+\end{resultado}
+
+\begin{interpretacion}
+\begin{itemize}
+    \item La tasa de interés $r^*$ (ecuación \eqref{eq:rstar}) depende
+          únicamente de los \textbf{totales mundiales} $\sum y_{i,t}$, no de
+          cómo se distribuyen entre países.
+    \item Los desequilibrios individuales de cuenta corriente reflejan las
+          \textbf{diferencias de ingreso relativo} de cada país respecto al
+          promedio mundial.
+    \item El componente agregado suma cero entre países (condición de limpieza),
+          por ello $\sum_{i=1}^N CA_{i,1}^* = 0$ siempre se cumple.
+\end{itemize}
+\end{interpretacion}

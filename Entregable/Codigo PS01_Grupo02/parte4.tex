@@ -1,0 +1,377 @@
+\begin{center}
+    {\LARGE \textbf{Parte IV}}\\[6pt]
+\end{center}
+\vspace{4pt}\hrule\vspace{10pt}
+
+{\large Análisis del Tipo de Interés y la Cuenta Corriente \par}
+
+\vspace{0.1cm}
+\noindent\rule{\textwidth}{0.5pt}
+\vspace{0.1cm}
+
+\section*{Planteamiento}
+Usaremos el resultado de la Parte III para la tasa de interés mundial de equilibrio:
+\begin{equation}
+1 + \rs = \frac{\sum_{i=1}^{N} \dfrac{y_{i,2}}{1+\beta_i}}{\sum_{i=1}^{N} \dfrac{\beta_i y_{i,1}}{1+\beta_i}}.
+\label{eq:tasa_general}
+\end{equation}
+
+Ahora dividimos los $N$ países en dos grupos:
+\begin{itemize}[leftmargin=1.2cm]
+    \item ahorradores $(S)$, con factor de descuento común $\bs$,
+    \item endeudados $(B)$, con factor de descuento común $\bb$,
+\end{itemize}
+con $\bs > \bb$.
+
+Además, denotamos:
+\[
+\ns = \operatorname{card}(S), \qquad \nb = \operatorname{card}(B), \qquad \ns + \nb = N,
+\]
+y suponemos dotación simétrica dentro de cada grupo:
+\[
+(y_{S,1},y_{S,2}) \quad \text{para cada país de } S,
+\qquad
+(y_{B,1},y_{B,2}) \quad \text{para cada país de } B.
+\]
+
+\section*{Ítem 20}
+
+Partiendo de \eqref{eq:tasa_general}, y usando que todos los países dentro de cada grupo son idénticos, el numerador se puede escribir como
+\[
+\sum_{i=1}^{N} \frac{y_{i,2}}{1+\beta_i}
+=
+\sum_{i \in S} \frac{y_{S,2}}{1+\bs}
++
+\sum_{i \in B} \frac{y_{B,2}}{1+\bb}
+=
+\ns \frac{y_{S,2}}{1+\bs} + \nb \frac{y_{B,2}}{1+\bb}.
+\]
+
+Análogamente, el denominador se puede escribir como
+\[
+\sum_{i=1}^{N} \frac{\beta_i y_{i,1}}{1+\beta_i}
+=
+\sum_{i \in S} \frac{\bs y_{S,1}}{1+\bs}
++
+\sum_{i \in B} \frac{\bb y_{B,1}}{1+\bb}
+=
+\ns \frac{\bs y_{S,1}}{1+\bs} + \nb \frac{\bb y_{B,1}}{1+\bb}.
+\]
+
+Por lo tanto,
+\begin{equation}
+1+\rs
+=
+\frac{\ns \dfrac{y_{S,2}}{1+\bs} + \nb \dfrac{y_{B,2}}{1+\bb}}
+{\ns \dfrac{\bs y_{S,1}}{1+\bs} + \nb \dfrac{\bb y_{B,1}}{1+\bb}}.
+\label{eq:rgrupos}
+\end{equation}
+
+y, en consecuencia,
+\begin{equation}
+\rs
+=
+\frac{\ns \dfrac{y_{S,2}}{1+\bs} + \nb \dfrac{y_{B,2}}{1+\bb}}
+{\ns \dfrac{\bs y_{S,1}}{1+\bs} + \nb \dfrac{\bb y_{B,1}}{1+\bb}} - 1.
+\label{eq:rfinal}
+\end{equation}
+
+Para simplificar la notación y simplificar las posteriores derivaciones, definimos
+\[
+A(\bs,\bb)
+=
+\ns \frac{y_{S,2}}{1+\bs} + \nb \frac{y_{B,2}}{1+\bb},
+\qquad
+D(\bs,\bb)
+=
+\ns \frac{\bs y_{S,1}}{1+\bs} + \nb \frac{\bb y_{B,1}}{1+\bb}.
+\]
+Entonces
+\[
+1+\rs = \frac{A}{D},
+\qquad
+\rs = \frac{A}{D} - 1.
+\]
+
+\subsection*{Interpretación en términos de fondos prestables}
+La expresión \eqref{eq:rgrupos} puede leerse como un equilibrio entre oferta y demanda de fondos prestables:
+\begin{itemize}[leftmargin=1.2cm]
+    \item el numerador $A$ recoge la \textbf{oferta agregada de recursos futuros} ponderada por la impaciencia/paciencia de cada grupo;
+    \item el denominador $D$ recoge la \textbf{demanda agregada de ahorro presente} ponderada por el factor de descuento de cada grupo.
+\end{itemize}
+
+Como el grupo $S$ es más paciente ($\bs > \bb$), ese grupo tiende a ofrecer relativamente más recursos presentes al mercado mundial, mientras que el grupo $B$, al ser menos paciente, tiende a demandarlos.
+
+\subsection*{Derivada de $\rs$ respecto a $\bs$}
+Primero derivamos $A$ y $D$ respecto a $\bs$:
+\[
+\frac{\partial A}{\partial \bs}
+=
+\frac{\partial}{\partial \bs}
+\left(
+\ns \frac{y_{S,2}}{1+\bs} + \nb \frac{y_{B,2}}{1+\bb}
+\right)
+=
+-\ns \frac{y_{S,2}}{(1+\bs)^2},
+\]
+
+Ahora,
+\[
+\frac{\partial D}{\partial \bs}
+=
+\frac{\partial}{\partial \bs}
+\left(
+\ns \frac{\bs y_{S,1}}{1+\bs} + \nb \frac{\bb y_{B,1}}{1+\bb}
+\right)
+=
+\ns y_{S,1}
+\frac{\partial}{\partial \bs}
+\left(
+\frac{\bs}{1+\bs}
+\right).
+\]
+Usando regla del cociente,
+\[
+\frac{\partial}{\partial \bs}
+\left(
+\frac{\bs}{1+\bs}
+\right)
+=
+\frac{(1+\bs)(1) - \bs(1)}{(1+\bs)^2}
+=
+\frac{1}{(1+\bs)^2}.
+\]
+Luego,
+\[
+\frac{\partial D}{\partial \bs}
+=
+\ns \frac{y_{S,1}}{(1+\bs)^2}.
+\]
+
+Como
+\[
+\rs = \frac{A}{D} - 1,
+\]
+se tiene
+\[
+\frac{\partial \rs}{\partial \bs}
+=
+\frac{\partial}{\partial \bs}\left(\frac{A}{D}\right)
+=
+\frac{\left(\dfrac{\partial A}{\partial \bs}\right)D - A\left(\dfrac{\partial D}{\partial \bs}\right)}{D^2}.
+\]
+Sustituyendo,
+\[
+\frac{\partial \rs}{\partial \bs}
+=
+\frac{\left(-\ns \dfrac{y_{S,2}}{(1+\bs)^2}\right)D - A\left(\ns \dfrac{y_{S,1}}{(1+\bs)^2}\right)}{D^2}.
+\]
+
+El signo es negativo porque $\ns>0$, $(1+\bs)^2>0$, $D^2>0$, $y_{S,2}>0$, $y_{S,1}>0$ y $A,D>0$.
+
+\subsection*{Derivada de $\rs$ respecto a $\bb$}
+De forma análoga,
+\[
+\frac{\partial A}{\partial \bb}
+=
+-\nb \frac{y_{B,2}}{(1+\bb)^2},
+\]
+porque solo cambia el término del grupo $B$ en el numerador.
+
+Asimismo,
+\[
+\frac{\partial D}{\partial \bb}
+=
+\nb y_{B,1}
+\frac{\partial}{\partial \bb}
+\left(
+\frac{\bb}{1+\bb}
+\right)
+=
+\nb \frac{y_{B,1}}{(1+\bb)^2}.
+\]
+
+Entonces,
+\[
+\frac{\partial \rs}{\partial \bb}
+=
+\frac{\left(\dfrac{\partial A}{\partial \bb}\right)D - A\left(\dfrac{\partial D}{\partial \bb}\right)}{D^2}
+=
+\frac{\left(-\nb \dfrac{y_{B,2}}{(1+\bb)^2}\right)D - A\left(\nb \dfrac{y_{B,1}}{(1+\bb)^2}\right)}{D^2}.
+\]
+Por lo tanto, similar al caso anterior, el impacto es negativo 
+
+\subsection*{¿Por qué el efecto de $\bs$ sobre $\rs$ no es simétrico al efecto de $\bb$?}
+Los dos efectos no son simétricos porque las expresiones dependen de parámetros distintos:
+\[
+\ns,\ y_{S,1},\ y_{S,2},\ \bs
+\qquad \text{vs} \qquad
+\nb,\ y_{B,1},\ y_{B,2},\ \bb.
+\]
+
+Esto se evidencia en las ecuaciones presentadas, en las que la magnitud del efecto depende también del tamaño de cada grupo (ahorradores y endeudados) y de sus dotaciones respectivas .
+
+Para que ambos efectos tengan igual magnitud debería cumplirse:
+\begin{equation}
+\frac{\ns}{(1+\bs)^2}\left(y_{S,2}D + y_{S,1}A\right)
+=
+\frac{\nb}{(1+\bb)^2}\left(y_{B,2}D + y_{B,1}A\right).
+\label{eq:condicion_general}
+\end{equation}
+
+Si las dotaciones por país fueran iguales entre grupos y la única fuente de asimetría es el número de países, entonces la condición a cumplirse sería:
+\[
+\operatorname{card}(S)=\operatorname{card}(B).
+\]
+
+\section*{ítem 21}
+En la Parte III obtuvimos, para cualquier país $i$,
+\[
+CA_{i,1}
+=
+\frac{\beta_i y_{i,1} - \dfrac{y_{i,2}}{1+\rs}}{1+\beta_i}.
+\]
+
+Por lo tanto, para un país representativo del grupo $S$,
+\begin{equation}
+\cas
+=
+\frac{\bs y_{S,1} - \dfrac{y_{S,2}}{1+\rs}}{1+\bs},
+\label{eq:cas}
+\end{equation}
+y para un país representativo del grupo $B$,
+\begin{equation}
+\cab
+=
+\frac{\bb y_{B,1} - \dfrac{y_{B,2}}{1+\rs}}{1+\bb}.
+\label{eq:cab}
+\end{equation}
+
+\subsection*{Derivada de $\cas$ respecto a $\bs$}
+Tomemos
+\[
+\cas = \frac{N_S}{1+\bs},
+\qquad
+N_S = \bs y_{S,1} - \frac{y_{S,2}}{1+\rs}.
+\]
+Entonces,
+\[
+\frac{\partial \cas}{\partial \bs}
+=
+\frac{(1+\bs)\dfrac{\partial N_S}{\partial \bs} - N_S}{(1+\bs)^2}.
+\]
+Ahora,
+\[
+\frac{\partial N_S}{\partial \bs}
+=
+\frac{\partial}{\partial \bs}
+\left(
+\bs y_{S,1} - \frac{y_{S,2}}{1+\rs}
+\right)
+=
+ y_{S,1} + \frac{y_{S,2}}{(1+\rs)^2}\frac{\partial \rs}{\partial \bs},
+\]
+porque
+\[
+\frac{\partial}{\partial \bs}\left(-\frac{y_{S,2}}{1+\rs}\right)
+=
+-y_{S,2}\left(-\frac{1}{(1+\rs)^2}\right)\frac{\partial \rs}{\partial \bs}
+=
+\frac{y_{S,2}}{(1+\rs)^2}\frac{\partial \rs}{\partial \bs}.
+\]
+
+Sustituyendo en la regla del cociente y simplificando,
+\begin{equation}
+\frac{\partial \cas}{\partial \bs}
+=
+\frac{y_{S,1}}{(1+\bs)^2}
+-
+\frac{y_{S,2}((1+\rs)+(1+\bs))}{(1+\bs)^2(1+\rs)^2}\frac{\partial \rs}{\partial \bs}.
+\label{eq:dcasdbetas}
+\end{equation}
+
+Como $\dfrac{\partial \rs}{\partial \bs}<0$, el segundo término es positivo debido al signo negativo por delante. De este modo, junto al primer término, obtenemos un impacto general positivo:
+\[
+\frac{\partial \cas}{\partial \bs} > 0.
+\]
+
+\subsection*{Derivada de $\cas$ respecto a $\bb$}
+Aquí $\bs$ no cambia directamente, así que solo opera el efecto indirecto vía $\rs$:
+\begin{equation}
+\frac{\partial \cas}{\partial \bb}
+=
+\frac{y_{S,2}}{(1+\bs)(1+\rs)^2}\frac{\partial \rs}{\partial \bb}.
+\label{eq:dcasdbetab}
+\end{equation}
+Como $\dfrac{\partial \rs}{\partial \bb}<0$, se concluye que
+\[
+\frac{\partial \cas}{\partial \bb}<0.
+\]
+
+\subsection*{Derivada de $\cab$ respecto a $\bs$}
+De forma análoga,
+\begin{equation}
+\frac{\partial \cab}{\partial \bs}
+=
+\frac{y_{B,2}}{(1+\bb)(1+\rs)^2}\frac{\partial \rs}{\partial \bs}.
+\label{eq:dcabdbetas}
+\end{equation}
+Como $\dfrac{\partial \rs}{\partial \bs}<0$, entonces
+\[
+\frac{\partial \cab}{\partial \bs}<0.
+\]
+Esto significa que un aumento de $\bs$ vuelve más deficitario al grupo $B$.
+
+\subsection*{Derivada de $\cab$ respecto a $\bb$}
+Ahora sí hay un efecto directo positivo sobre la cuenta corriente del propio grupo, además del efecto indirecto vía $\rs$:
+\begin{equation}
+\frac{\partial \cab}{\partial \bb}
+=
+\frac{y_{B,1}}{(1+\bb)^2}
+-
+\frac{y_{B,2}((1+\rs)+(1+\bb))}{(1+\bb)^2(1+\rs)^2}\frac{\partial \rs}{\partial \bb}.
+\label{eq:dcabdbetab}
+\end{equation}
+Como en el caso anterior, finalmente obtenemos un impacto positivo:
+\[
+\frac{\partial \cab}{\partial \bb}>0.
+\]
+
+\subsection*{Conclusión sobre los signos}
+En resumen,
+\[
+\frac{\partial \cas}{\partial \bs} > 0,
+\qquad
+\frac{\partial \cab}{\partial \bs} < 0,
+\qquad
+\frac{\partial \cas}{\partial \bb} < 0,
+\qquad
+\frac{\partial \cab}{\partial \bb} > 0.
+\]
+
+Por tanto:
+\begin{itemize}[leftmargin=1.2cm]
+    \item un aumento en $\bs$ genera un \textbf{mayor superávit} en el grupo $S$ y un \textbf{mayor déficit} en el grupo $B$;
+    \item un aumento en $\bb$ produce el efecto contrario: reduce el superávit de $S$ y mejora la cuenta corriente de $B$.
+\end{itemize}
+
+\subsection*{Interpretación de la matriz}
+La matriz
+\[
+\begin{pmatrix}
+\dfrac{\partial \cas}{\partial \bs} & \dfrac{\partial \cas}{\partial \bb} \\
+\dfrac{\partial \cab}{\partial \bs} & \dfrac{\partial \cab}{\partial \bb}
+\end{pmatrix}
+\]
+puede interpretarse como una \textbf{matriz de sensibilidad de las cuentas corrientes} con respecto a los factores de descuento de ambos grupos.
+
+Su interpretación económica es la siguiente:
+\begin{itemize}[leftmargin=1.2cm]
+    \item los elementos de la diagonal principal son positivos: un aumento en la paciencia de un grupo mejora su propia cuenta corriente;
+    \item los elementos fuera de la diagonal son negativos: un aumento en la paciencia de un grupo empeora la cuenta corriente del otro grupo;
+    \item la matriz resume cómo cambios en preferencias intertemporales de cada tipo de país afectan el ahorro y el endeudamiento dentro de la economía mundial.
+\end{itemize}
+
+
+
+

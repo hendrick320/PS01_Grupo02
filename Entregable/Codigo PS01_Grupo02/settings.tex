@@ -1,0 +1,37 @@
+% ============================================================
+%  settings.tex --- COPIA ESTO COMPLETO
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools, bm, physics}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{setspace, parskip, microtype, graphicx, booktabs, array, float, caption, xcolor, tcolorbox, enumitem, titlesec, fancyhdr, hyperref}
+
+\tcbuselibrary{theorems, skins, breakable}
+\allowdisplaybreaks
+\onehalfspacing
+
+% Comandos especiales para fórmulas de las Partes 1 y 4
+\newcommand{\E}{\mathbb{E}_t}
+\newcommand{\xiit}{\bm{\xi}_t}
+\newcommand{\rs}{r^*}
+\newcommand{\ns}{n_S}
+\newcommand{\nb}{n_B}
+\newcommand{\bs}{\beta_S}
+\newcommand{\bb}{\beta_B}
+\newcommand{\cas}{CA_S}
+\newcommand{\cab}{CA_B}
+
+% Encabezados
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textit{Macroeconomía Intermedia}}
+\lhead{\textsc{Problem Set 1}}
+\rfoot{\thepage}
+
+% Definición de Cajas (Usadas en Parte 2 y 3)
+\newtcolorbox{resultado}{colback=yellow!10!white, colframe=orange!70!black, fonttitle=\bfseries, title=Resultado, breakable}
+\newtcolorbox{condicion}[1][Condición]{colback=blue!5!white, colframe=blue!50!black, fonttitle=\bfseries, title=#1, breakable}
+\newtcolorbox{interpretacion}{colback=green!5!white, colframe=green!50!black, fonttitle=\bfseries, title=Interpretación, breakable}
+\newtcolorbox{enunciado}{colback=gray!8!white, colframe=gray!50!black, fonttitle=\bfseries, title=Pregunta, breakable}

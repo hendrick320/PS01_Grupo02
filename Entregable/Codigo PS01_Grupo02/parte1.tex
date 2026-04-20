@@ -1,0 +1,327 @@
+\begin{center}
+    {\LARGE \textbf{Parte I}}\\[6pt]
+\end{center}
+\vspace{4pt}\hrule\vspace{10pt}
+
+\subsection*{Ítem 1 }
+Definimos el vector de estado $\bm{\xi}_t$ y su rezago $\bm{\xi}_{t-1}$:
+\begin{equation}
+    \bm{\xi}_t = \begin{bmatrix} y_t \\ y_{t-1} \\ \vdots \\ y_{t-p+1} \end{bmatrix}, \quad \bm{\xi}_{t-1} = \begin{bmatrix} y_{t-1} \\ y_{t-2} \\ \vdots \\ y_{t-p} \end{bmatrix}
+\end{equation}
+La forma matricial $\bm{\xi}_t = F \bm{\xi}_{t-1} + v_t$ es:
+\begin{equation}
+    \begin{bmatrix} y_t \\ y_{t-1} \\ \vdots \\ y_{t-p+1} \end{bmatrix} = \begin{bmatrix} 
+    \rho_1 & \rho_2 & \dots & \rho_p \\
+    1 & 0 & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 1 & 0
+    \end{bmatrix} \begin{bmatrix} y_{t-1} \\ y_{t-2} \\ \vdots \\ y_{t-p} \end{bmatrix} + \begin{bmatrix} \epsilon_t \\ 0 \\ \vdots \\ 0 \end{bmatrix}
+\end{equation}
+\textbf{Interpretación:} La estabilidad del modelo requiere que los valores propios de F sean menores a 1. Esto garantiza que los efectos de un choque se disipen con el tiempo, evitando que la economía presente un comportamiento explosivo. En términos prácticos, significa que ante un choque de ingresos hoy, su impacto disminuirá gradualmente hasta desaparecer por completo.
+
+\subsection*{Ítem 2 }
+
+Partimos de la ecuación de transición del vector de estado:
+\begin{equation}
+    \bm{\xi}_t = F \bm{\xi}_{t-1} + v_t
+\end{equation}
+Para calcular las expectativas de los valores futuros de $\bm{\xi}$ condicionadas a la información disponible en el tiempo $t$ (donde $\E[v_{t+j}] = 0$), realizamos el siguiente proceso iterativo:
+
+\begin{itemize}
+    \item \textbf{Para $j=1$:}
+    \begin{equation}
+        \bm{\xi}_{t+1} = F \bm{\xi}_t + v_{t+1} \implies \E[\bm{\xi}_{t+1}] = F \bm{\xi}_t
+    \end{equation}
+    
+    \item \textbf{Para $j=2$:}
+    Usamos el resultado anterior y la propiedad de expectativas iteradas:
+    \begin{equation}
+        \bm{\xi}_{t+2} = F \bm{\xi}_{t+1} + v_{t+2} \implies \E[\bm{\xi}_{t+2}] = F \E[\bm{\xi}_{t+1}]
+    \end{equation}
+    Sustituyendo $\E[\bm{\xi}_{t+1}] = F \bm{\xi}_t$:
+    \begin{equation}
+        \E[\bm{\xi}_{t+2}] = F(F \bm{\xi}_t) = F^2 \bm{\xi}_t
+    \end{equation}
+\end{itemize}
+
+\textbf{Generalización por Inducción:}
+Siguiendo esta lógica para cualquier periodo $j$, llegamos a la solución general:
+\begin{equation}
+    \E[\bm{\xi}_{t+j}] = F^j \bm{\xi}_t
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{Interpretación de $F^j$:} Representa el mecanismo de transmisión de la información actual hacia horizontes lejanos. Determina la persistencia de los valores presentes del ingreso y sus rezagos sobre las expectativas futuras después de $j$ períodos.
+    
+    \item \textbf{Análisis del Límite:} Dado que el sistema es estacionario, cuando $j \to \infty$ se cumple que $F^j \to 0$. Esto implica que la economía disipa el efecto de los choques pasados, permitiendo que las variables converjan a su media de largo plazo. Por tanto, ante un futuro distante, la mejor predicción es que el ingreso retorne a su valor en estado estacionario.
+\end{itemize}
+
+
+\subsection*{Ítem 3}
+
+\textbf{Fórmula de Limpieza de Mercado (Market Clearing):} \\
+En equilibrio, el producto total se asigna al consumo, inversión, gasto de gobierno y el saldo neto exterior:
+\begin{equation}
+    y_t = C_t + i_t + g_t + ca_t
+\end{equation}
+
+\textbf{El Problema de Optimización (Lagrangiano):} \\
+El hogar busca maximizar el valor esperado de su utilidad cuadrática sujeto a su restricción presupuestaria dinámica. El Lagrangiano ($\mathcal{L}$) se define como:
+\begin{equation}
+    \mathcal{L} = \E \sum_{j=0}^{\infty} \beta^j \left\{ -\frac{1}{2}(C_{t+j} - \bar{C})^2 + \lambda_{t+j} \left[ y_{t+j} + d_{t+j} - C_{t+j} - (1+r^*)d_{t+j-1} \right] \right\}
+\end{equation}
+Donde $\lambda_{t+j}$ es el multiplicador de Lagrange (utilidad marginal de la riqueza).
+
+\textbf{Condiciones de Primer Orden (CPO):} \\
+Derivamos respecto a las variables de control del hogar ($C_{t+j}$ y $d_{t+j}$):
+\begin{enumerate}
+    \item \textbf{Respecto al Consumo ($C_{t+j}$):} 
+    \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial C_{t+j}} = 0 \implies \beta^j [-(C_{t+j} - \bar{C})] - \beta^j \lambda_{t+j} = 0 \implies \bm{\lambda_{t+j} = \bar{C} - C_{t+j}}
+    \end{equation}
+    \item \textbf{Respecto a la Deuda ($d_{t+j}$):} 
+    \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial d_{t+j}} = 0 \implies \beta^j \lambda_{t+j} - \E[\beta^{j+1} \lambda_{t+j+1}(1+r^*)] = 0
+    \end{equation}
+\end{enumerate}
+
+\textbf{Llegada a la Ecuación de Euler:} \\
+Sustituyendo la primera CPO en la segunda y utilizando el \textbf{Dato de Calibración} $\beta(1+r^*) = 1$:
+\begin{align}
+    \lambda_t &= \beta(1+r^*) \E[\lambda_{t+1}] \\
+    \lambda_t &= \E[\lambda_{t+1}] \\
+    \bar{C} - C_t &= \E[\bar{C} - C_{t+1}] \implies \bm{C_t = \E[C_{t+1}]}
+\end{align}
+
+\textbf{Condición de Transversalidad:} \\
+Para asegurar que la solución sea óptima en un horizonte infinito, se impone que el valor presente de la deuda sea cero en el límite:
+\begin{equation}
+    \lim_{j \to \infty} \E \left[ \frac{d_{t+j}}{(1+r^*)^j} \right] = 0
+\end{equation}
+\textbf{Interpretación:} Esta condición impide que el hogar se endeude infinitamente para consumir hoy (esquema Ponzi) o que muera con una cantidad infinita de activos sin consumir.
+
+
+\subsection*{Ítem 4}
+
+Partimos de la Condición de Primer Orden (CPO) obtenida en el punto anterior, donde se establece que la utilidad marginal del consumo hoy debe ser igual a la utilidad marginal esperada del mañana:
+\begin{equation}
+    \lambda_t = \E[\lambda_{t+1}] \implies (\bar{C} - C_t) = \E[\bar{C} - C_{t+1}]
+\end{equation}
+Simplificando, obtenemos la \textbf{Ecuación de Euler}: $C_t = \E[C_{t+1}]$.
+
+\textbf{Desarrollo Iterativo del Consumo Futuro:} \\
+Para demostrar que el nivel de consumo actual es la mejor predicción para cualquier periodo en el futuro, aplicamos el \textbf{Teorema de Expectativas Iteradas} ($\E_t[\E_{t+1}(X)] = \E_t[X]$) paso a paso:
+
+\begin{itemize}
+    \item \textbf{Para $j=1$:} 
+    Directamente de la ecuación de Euler:
+    \begin{equation}
+        \E[C_{t+1}] = C_t
+    \end{equation}
+
+    \item \textbf{Para $j=2$:} 
+    Queremos hallar $\E[C_{t+2}]$. Por la ley de expectativas iteradas, sabemos que:
+    \begin{equation}
+        \E[C_{t+2}] = \E[ \E_{t+1}(C_{t+2}) ]
+    \end{equation}
+    Usando la Euler un periodo adelante ($\E_{t+1}[C_{t+2}] = C_{t+1}$), sustituimos:
+    \begin{equation}
+        \E[C_{t+2}] = \E[C_{t+1}]
+    \end{equation}
+    Y como ya sabemos que $\E[C_{t+1}] = C_t$, concluimos que:
+    \begin{equation}
+        \E[C_{t+2}] = C_t
+    \end{equation}
+\end{itemize}
+
+\textbf{Generalización por Inducción:}
+Repitiendo este proceso para cualquier horizonte temporal $j \geq 1$, demostramos que:
+\begin{equation}
+    \bm{C_t = \E[C_{t+j}]}
+\end{equation}
+
+\textbf{Interpretación Económica:}
+\begin{itemize}
+    \item \textbf{Suavización del Consumo (Consumption Smoothing):} Para evitar que su nivel de vida sea inestable, los hogares recurren al ahorro y al endeudamiento para suavizar su consumo. Esto hace que lo que planeas consumir en el futuro lejano sea igual a lo que consumes hoy. Bajo esta lógica, el consumo se mantiene fijo y solo se ve alterado por noticias totalmente inesperadas o shocks que son imposibles de predecir en el presente.
+\end{itemize}
+
+\subsection*{Item 5}
+
+Partimos de la restricción de presupuesto en el periodo $t$: $d_t = (1+r^*)d_{t-1} + C_t - y_t$. 
+
+Despejamos el valor de la deuda inicial:
+\begin{equation}
+    (1+r^*)d_{t-1} = y_t - C_t + d_t
+\end{equation}
+Iteramos hacia adelante sustituyendo $d_t$ por su valor esperado en $t+1$, luego $d_{t+1}$ y así sucesivamente:
+\begin{align}
+    (1+r^*)d_{t-1} &= (y_t - C_t) + \E \left[ \frac{y_{t+1} - C_{t+1} + d_{t+1}}{1+r^*} \right] \\
+    (1+r^*)d_{t-1} &= (y_t - C_t) + \frac{\E[y_{t+1} - C_{t+1}]}{1+r^*} + \frac{\E[y_{t+2} - C_{t+2}]}{(1+r^*)^2} + \dots + \frac{\E[d_{t+j}]}{(1+r^*)^j}
+\end{align}
+
+Aplicando el límite de la \textbf{Condición de Transversalidad (No-Ponzi Scheme)}: $\lim_{j \to \infty} \E \left[ \frac{d_{t+j}}{(1+r^*)^j} \right] = 0$, obtenemos la Ecuación 9:
+\begin{equation}
+    (1+r^*)d_{t-1} = \E \sum_{j=0}^{\infty} \frac{y_{t+j} - C_{t+j}}{(1+r^*)^j}
+\end{equation}
+
+\subsection*{Item 6}
+
+
+Partimos de la Restricción Presupuestaria Intertemporal obtenida en el punto anterior (Ecuación 9):
+\begin{equation}
+    (1+r^*)d_{t-1} = \E \sum_{j=0}^{\infty} \frac{y_{t+j} - C_{t+j}}{(1+r^*)^j}
+\end{equation}
+
+\textbf{Paso 1: Separación de la sumatoria.} \\
+Aplicamos la propiedad de linealidad de la esperanza y de las sumatorias para separar el ingreso del consumo:
+\begin{equation}
+    (1+r^*)d_{t-1} = \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - \E \sum_{j=0}^{\infty} \frac{C_{t+j}}{(1+r^*)^j}
+\end{equation}
+
+\textbf{Paso 2: Aplicación de la Suavización del Consumo.} \\
+Por la Ecuación de Euler y el Teorema de Expectativas Iteradas (Punto 4), sabemos que $\E[C_{t+j}] = C_t$ para todo $j \geq 0$. Sustituimos esto en la segunda sumatoria:
+\begin{equation}
+    \E \sum_{j=0}^{\infty} \frac{C_{t+j}}{(1+r^*)^j} = \sum_{j=0}^{\infty} \frac{C_t}{(1+r^*)^j} = C_t \sum_{j=0}^{\infty} \left( \frac{1}{1+r^*} \right)^j
+\end{equation}
+
+\textbf{Paso 3: Resolución de la Serie Geométrica Infinita.} \\
+Recordamos que una serie de la forma $\sum_{j=0}^{\infty} a^j$ converge a $\frac{1}{1-a}$ si $|a| < 1$. En nuestro caso, $a = \frac{1}{1+r^*}$:
+\begin{equation}
+    \sum_{j=0}^{\infty} \left( \frac{1}{1+r^*} \right)^j = \frac{1}{1 - \frac{1}{1+r^*}} = \frac{1}{\frac{1+r^*-1}{1+r^*}} = \frac{1+r^*}{r^*}
+\end{equation}
+
+\textbf{Paso 4: Sustitución y Despeje de $C_t$.} \\
+Sustituimos el resultado de la serie en la ecuación principal:
+\begin{equation}
+    (1+r^*)d_{t-1} = \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - C_t \left( \frac{1+r^*}{r^*} \right)
+\end{equation}
+Ahora, despejamos el término que contiene al consumo:
+\begin{equation}
+    C_t \left( \frac{1+r^*}{r^*} \right) = \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - (1+r^*)d_{t-1}
+\end{equation}
+Multiplicamos toda la ecuación por $\left( \frac{r^*}{1+r^*} \right)$ para aislar $C_t$:
+\begin{equation}
+    C_t = \left( \frac{r^*}{1+r^*} \right) \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - \left( \frac{r^*}{1+r^*} \right) (1+r^*)d_{t-1}
+\end{equation}
+
+\textbf{Resultado Final (Ecuación 10):}
+\begin{equation}
+    C_t = \underbrace{\frac{r^*}{1+r^*} \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j}}_{\text{Riqueza Humana (Anualizada)}} - \underbrace{r^* d_{t-1}}_{\text{Riqueza Financiera (Servicio)}}
+\end{equation}
+
+\textbf{Interpretación:} El consumo de hoy no depende de si recibiste un bono hoy o si disminuye tu salario (ingreso transitorio), sino de tu ingreso permanente. Si recibes \$1000 hoy, solo consumes $r^* \times 1000$ y ahorras el resto para mantener ese nivel de consumo cuando ya no tengas el cheque. Solo gastas los intereses que ese dinero te daría por el resto de tu vida.
+
+\subsection*{ítem 7}
+
+Partimos de la definición de la Cuenta Corriente: $ca_t = y_t - C_t - r^*d_{t-1}$. El objetivo es demostrar cómo el saldo externo depende de las expectativas de cambios futuros en el ingreso.
+
+\textbf{Paso 1: Sustitución del Consumo ($C_t$).} \\
+Sustituimos la Ecuación 10 en la definición de $ca_t$:
+\begin{equation}
+    ca_t = y_t - \left[ \frac{r^*}{1+r^*} \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - r^* d_{t-1} \right] - r^* d_{t-1}
+\end{equation}
+Notamos que los términos de riqueza financiera (deuda) $-(-r^* d_{t-1})$ y $-r^* d_{t-1}$ se cancelan exactamente:
+\begin{equation}
+    ca_t = y_t - \frac{r^*}{1+r^*} \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j}
+\end{equation}
+
+\textbf{Paso 2: Desglose del primer término de la sumatoria ($j=0$).} \\
+Extraemos el ingreso actual ($y_t$) de la sumatoria infinita:
+\begin{equation}
+    ca_t = y_t - \frac{r^*}{1+r^*} \left[ y_t + \E \sum_{j=1}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} \right]
+\end{equation}
+Agrupamos los términos que contienen $y_t$:
+\begin{equation}
+    ca_t = y_t \left( 1 - \frac{r^*}{1+r^*} \right) - \frac{r^*}{1+r^*} \E \sum_{j=1}^{\infty} \frac{y_{t+j}}{(1+r^*)^j}
+\end{equation}
+Simplificando el paréntesis: $1 - \frac{r^*}{1+r^*} = \frac{1+r^*-r^*}{1+r^*} = \frac{1}{1+r^*}$. Obtenemos:
+\begin{equation}
+    ca_t = \frac{y_t}{1+r^*} - \frac{r^*}{1+r^*} \E \sum_{j=1}^{\infty} \frac{y_{t+j}}{(1+r^*)^j}
+\end{equation}
+
+\textbf{Paso 3: Transformación a Variaciones ($\Delta y$).} \\
+Utilizamos el hecho de que $y_t$ puede expresarse como una serie geométrica ponderada por sus propios cambios futuros. Mediante manipulación algebraica de los términos $y_{t+j}$, reescribimos la ecuación en función de $\Delta y_{t+j} = y_{t+j} - y_{t+j-1}$:
+\begin{equation}
+    ca_t = -\E \sum_{j=1}^{\infty} \frac{\Delta y_{t+j}}{(1+r^*)^j}
+\end{equation}
+
+\textbf{Interpretación:} " Ahorras para un día lluvioso". Si esperas que el ingreso baje en el futuro ($\Delta y < 0$), ahorras hoy ($ca_t > 0$). Tu cuenta corriente entra en superavit. Por el otro lado, si tu ingreso sube ($\Delta y > 0$). Eres más rico en el futuro, pides prestado hoy para empezar a vivir bien. Tu cuenta corriente entra déficit.  
+
+\subsection*{ítem 8}
+
+\textbf{Reescribiendo la Ecuación 10 (Consumo e Ingreso Permanente):} \\
+Sabemos que $y_t^p = \frac{r^*}{1+r^*} \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j}$. Para llevar esto a su forma matricial, usamos que $y_{t+j} = \mathbf{e}_1^\top \bm{\xi}_{t+j}$ y que $\E[\bm{\xi}_{t+j}] = F^j \bm{\xi}_t$:
+
+\begin{align}
+    y_t^p &= \frac{r^*}{1+r^*} \sum_{j=0}^{\infty} \frac{\mathbf{e}_1^\top F^j \bm{\xi}_t}{(1+r^*)^j} \\
+    y_t^p &= \left[ \frac{r^*}{1+r^*} \mathbf{e}_1^\top \sum_{j=0}^{\infty} \left( \frac{F}{1+r^*} \right)^j \right] \bm{\xi}_t
+\end{align}
+
+Usando la propiedad de la serie geométrica matricial $\sum_{j=0}^{\infty} M^j = (I - M)^{-1}$, definimos el vector de coeficientes $\bm{\Gamma}^\top$:
+\begin{equation}
+    \bm{\Gamma}^\top = \frac{r^*}{1+r^*} \mathbf{e}_1^\top \left( I_p - \frac{F}{1+r^*} \right)^{-1}
+\end{equation}
+Por lo tanto, la ecuación reescrita es: $\bm{y_t^p = \bm{\Gamma}^\top \bm{\xi}_t}$.
+
+\vspace{1em}
+\vspace{1em}
+\textbf{Reescribiendo la Ecuación 10 (Hacia el Ingreso Permanente Matricial)} \\
+Partimos de la definición teórica del consumo:
+\begin{equation}
+    C_t = \frac{r^*}{1+r^*} \E \sum_{j=0}^{\infty} \frac{y_{t+j}}{(1+r^*)^j} - r^* d_{t-1}
+\end{equation}
+Para operarlo matricialmente, definimos el \textbf{Ingreso Permanente} ($y_t^p$) como la anualidad de la riqueza humana. Usamos la propiedad $y_{t+j} = \mathbf{e}_1^\top \bm{\xi}_{t+j}$ y la predicción $\E[\bm{\xi}_{t+j}] = F^j \bm{\xi}_t$:
+
+\begin{enumerate}
+    \item \textbf{Sustitución:} 
+    $y_t^p = \frac{r^*}{1+r^*} \sum_{j=0}^{\infty} \frac{\mathbf{e}_1^\top F^j \bm{\xi}_t}{(1+r^*)^j}$
+    \item \textbf{Factorización del vector de estado:} Sacamos los términos constantes de la sumatoria:
+    $y_t^p = \left[ \frac{r^*}{1+r^*} \mathbf{e}_1^\top \sum_{j=0}^{\infty} \left( \frac{F}{1+r^*} \right)^j \right] \bm{\xi}_t$
+    \item \textbf{Solución de la serie de potencias:} Como los valores propios de $F$ están dentro del círculo unitario, la serie converge a $(I - M)^{-1}$:
+    $\bm{\Gamma}^\top = \frac{r^*}{1+r^*} \mathbf{e}_1^\top \left( I_p - \frac{F}{1+r^*} \right)^{-1}$
+\end{enumerate}
+
+\textbf{Resultado Final:}
+\begin{equation}
+    C_t = \underbrace{\bm{\Gamma}^\top \bm{\xi}_t}_{y_t^p} - r^* d_{t-1}
+\end{equation}
+
+\textbf{Interpretación del proceso:} 
+Al reescribir la ecuación de esta manera, demostramos que el consumo no solo depende del ingreso observado hoy ($y_t$), sino de toda la información contenida en el vector de estado $\bm{\xi}_t$ (que incluye los rezagos del ingreso). Esto permite que el agente asigne ponderaciones ($\bm{\Gamma}^\top$) a cada dato pasado para predecir su riqueza futura y decidir su nivel de vida actual.
+
+\textbf{Cuenta Corriente (Ecuacion 11):} \\
+Partimos de $ca_t = -\E \sum_{j=1}^{\infty} \frac{\Delta y_{t+j}}{(1+r^*)^j}$. Sabiendo que $\Delta y_{t+j} = y_{t+j} - y_{t+j-1} = \mathbf{e}_1^\top (F^j - F^{j-1}) \bm{\xi}_t$:
+
+\begin{equation}
+    ca_t = -\mathbf{e}_1^\top \left[ \sum_{j=1}^{\infty} \frac{F^j - F^{j-1}}{(1+r^*)^j} \right] \bm{\xi}_t
+\end{equation}
+
+Factorizando y simplificando la serie matricial, obtenemos la forma compacta:
+\begin{equation}
+    ca_t = \mathbf{e}_1^\top \left[ I_p - \left( I_p - \frac{F}{1+r^*} \right)^{-1} \right] \bm{\xi}_t
+\end{equation}
+
+\subsection*{Análisis Final: Invertibilidad y Relaciones Económicas}
+
+\textbf{1. ¿Por qué es invertible la matriz $(I_p - \frac{F}{1+r^*})$?} \\
+La invertibilidad de esta matriz es fundamental para hallar la solución del ingreso permanente. Matemáticamente, se garantiza por dos razones:
+\begin{itemize}
+    \item \textbf{Condición de Estacionariedad:} Por dato, el proceso del ingreso es estacionario, lo que implica que todos los valores propios ($\lambda$) de la matriz compañera $F$ son menores a 1 en valor absoluto ($|\lambda| < 1$).
+    \item \textbf{Factor de Descuento:} Dado que $r^* > 0$, el término $\frac{1}{1+r^*}$ es menor a 1. Por lo tanto, los valores propios de la matriz modificada $\frac{F}{1+r^*}$ son aún más pequeños. 
+    \item \textbf{Conclusión:} Como ningún valor propio de $\frac{F}{1+r^*}$ puede ser igual a 1, la matriz $(I_p - \frac{F}{1+r^*})$ es no singular (su determinante es distinto de cero) y, por lo tanto, su inversa existe.
+\end{itemize}
+
+\textbf{2. Relación entre el Ingreso Actual ($y_t$) y el Ingreso Permanente ($y_t^p$)} \\
+Esta relación define la posición financiera del país o individuo:
+\begin{itemize}
+    \item \textbf{Si $y_t > y_t^p$ (Acreedor Neto):} El ingreso observado hoy es superior al promedio de ingresos que esperas recibir durante el resto de tu vida. Esto se considera un auge temporal. Para mantener el consumo estable en el futuro, el agente debe ahorrar el excedente hoy.
+    \item \textbf{Si $y_t < y_t^p$ (Deudor Neto):} El ingreso actual es inferior al promedio de vida. Para no bajar su nivel de vida (suavización del consumo), el agente pide prestado contra sus ingresos futuros.
+\end{itemize}
+
+\textbf{3. Interpretación Final de la Cuenta Corriente ($ca_t$)} \\
+La ecuación $ca_t = -\E \sum_{j=1}^{\infty} \frac{\Delta y_{t+j}}{(1+r^*)^j}$ nos da la clave del sector externo:
+\begin{itemize}
+    \item \textbf La cuenta corriente actúa como un amortiguador. Si el agente anticipa que sus ingresos futuros van a caer ($\Delta y < 0$), la sumatoria se vuelve negativa, y debido al signo menos exterior, la $ca_t$ resulta positiva. 
+    \item \textbf{Resultado:} Un superávit en la cuenta corriente hoy es la señal de que el país se está preparando para una disminución futura de sus recursos.
+\end{itemize}
+
