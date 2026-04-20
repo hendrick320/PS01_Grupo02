@@ -1,0 +1,4 @@
+Momento,Base,Calibrado
+"corr(CA, ciclo)",0.012,0.011
+"corr(I, ciclo)",0.634,0.551
+σ(I)/σ(C),0.012,0.059

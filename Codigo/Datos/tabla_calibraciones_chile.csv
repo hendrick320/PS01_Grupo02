@@ -1,0 +1,7 @@
+Pais,Parametro,Calibracion_ojo,Calibracion_paper
+Chile,alpha,0.4,0.33
+Chile,beta,0.96,0.996
+Chile,delta,0.1,0.058
+Chile,r_star,0.03,0.04
+Chile,rho,0.95,0.95
+Chile,sigma_eps,0.03,0.035
